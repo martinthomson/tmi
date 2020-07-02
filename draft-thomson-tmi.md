@@ -318,7 +318,7 @@ This is an extension of the conclusion of {{?PATH-SIGNALS=RFC8558}}, which:
 
 > recommends that implicit signals should be avoided and that an implicit signal
 > should be replaced with an explicit signal only when the signal's originator
-> intends that it be used by the network elements on the path.  
+> intends that it be used by the network elements on the path.
 
 Where the potential for intermediation already exists, or intermediaries provide
 essential functions, the implementation of this principle might require the use
@@ -468,6 +468,8 @@ This document has no IANA actions.
 
 # Acknowledgments
 
-TODO
+This document is merely an attempt to codify existing practice.  Practice that
+is inspired, at least in part, by prior work, including {{?RFC3552}} and
+{{?RFC3724}} which both advocate for clearer articulation of trust boundaries.
 
 
