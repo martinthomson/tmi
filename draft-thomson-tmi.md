@@ -47,12 +47,12 @@ is best served by moving higher-level functions to endpoints is a key insight
 in system design, but also a key element of the success of the Internet.
 
 This does not mean that the Internet inevitably avoids a reliance on functions
-provided entities in the network.  Indeed, while the principle establishes that
-some functions are innately more efficient when provided by endsystems, this is
-not to the complete exclusion of intermediary functions.  Some level of function
-in the network is absolutely necessary, or else there would be no network.  The
-ways in which intermediaries can assist protocol endpoints are numerous and
-constantly evolving.
+provided by entities in the network.  Indeed, while the principle establishes
+that some functions are best provided by endsystems, this is not to the complete
+exclusion of intermediary functions.  Some level of function in the network is
+absolutely necessary, or else there would be no network.  The ways in which
+intermediaries can assist protocol endpoints are numerous and constantly
+evolving.
 
 This document explores some of the ways in which intermediaries make both
 essential and valuable contributions to the function of the system.  Problems
