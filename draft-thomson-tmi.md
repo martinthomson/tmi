@@ -1,5 +1,5 @@
 ---
-title: "Principles for the Involvement of Intermediaries in Internet Protocols"
+title: "This Draft Needs More Unicorns"
 abbrev: "Too Much Intermediation"
 docname: draft-thomson-tmi-latest
 category: info
