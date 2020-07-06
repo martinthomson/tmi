@@ -47,12 +47,12 @@ is best served by moving higher-level functions to endpoints is a key insight
 in system design, but also a key element of the success of the Internet.
 
 This does not mean that the Internet inevitably avoids a reliance on functions
-provided entities in the network.  Indeed, while the principle establishes that
-some functions are innately more efficient when provided by endsystems, this is
-not to the complete exclusion of intermediary functions.  Some level of function
-in the network is absolutely necessary, or else there would be no network.  The
-ways in which intermediaries can assist protocol endpoints are numerous and
-constantly evolving.
+provided by entities in the network.  Indeed, while the principle establishes
+that some functions are best provided by endsystems, this is not to the complete
+exclusion of intermediary functions.  Some level of function in the network is
+absolutely necessary, or else there would be no network.  The ways in which
+intermediaries can assist protocol endpoints are numerous and constantly
+evolving.
 
 This document explores some of the ways in which intermediaries make both
 essential and valuable contributions to the function of the system.  Problems
@@ -415,19 +415,13 @@ access.  Several documents have explored aspects of this in detail:
 
 In all these documents, the defining characteristic is the move from a system
 that lacked controls on participation to one in which technical controls are
-deployed.  Each of these documents list a number of practices that are effected
-by deployment of technical controls that enforce the principles described in
-this document, primarily that of encryption.
-
-What is also common to all of the documented practices is that they depend on
-the protocol providing no technical controls or only limited technical controls
-that prevent the addition of intermediaries.  Thus, many of these techniques
-involve the insertion of intermediaries into sessions without permission or
-knowledge of other protocol participants.
-
-By adding controls like encryption, these practices are disrupted.  Overall, the
-advantages derived from having greater control and knowledge of other protocol
-participants outweighs these costs.
+deployed.  In each case the protocols in question provided no technical controls
+or only limited technical controls that prevent the addition of intermediaries.
+This allowed the deployment of techniques that involved the insertion of
+intermediaries into sessions without permission or knowledge of other protocol
+participants. By adding controls like encryption, these practices are disrupted.
+Overall, the advantages derived from having greater control and knowledge of
+other protocol participants outweighs these costs.
 
 The process of identifying critical functions for intermediaries is ongoing.
 There are three potential classes of outcome of these discussion:
