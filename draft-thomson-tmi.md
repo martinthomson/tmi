@@ -222,8 +222,6 @@ or {{?MIDDLEBOX=RFC3234}}.  In particular, intermediaries can limit how other
 participants are able to use new protocol features; see Section 2.3 of
 {{?USE-IT=I-D.iab-use-it-or-lose-it}}.
 
-
-
 Historically, many forms of intermediation have been deployed without
 consulting the endpoints involved in the protocol.  In some instances, the
 implementor of the intermediary used assumptions based on their understanding
