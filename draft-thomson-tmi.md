@@ -223,7 +223,6 @@ participants are able to use new protocol features; see Section 2.3 of
 {{?USE-IT=I-D.iab-use-it-or-lose-it}}.
 
 
-# Incorrect Intermediation
 
 Historically, many forms of intermediation have been deployed without
 consulting the endpoints involved in the protocol.  In some instances, the
@@ -479,5 +478,4 @@ This document has no IANA actions.
 This document is merely an attempt to codify existing practice.  Practice that
 is inspired, at least in part, by prior work, including {{?RFC3552}} and
 {{?RFC3724}} which both advocate for clearer articulation of trust boundaries.
-
 
