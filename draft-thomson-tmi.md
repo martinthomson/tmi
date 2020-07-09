@@ -223,6 +223,20 @@ participants are able to use new protocol features; see Section 2.3 of
 {{?USE-IT=I-D.iab-use-it-or-lose-it}}.
 
 
+# Incorrect Intermediation
+
+Historically, many forms of intermediation have been deployed without
+consulting the endpoints involved in the protocol.  In some instances, the
+implementor of the intermediary used assumptions based on their understanding
+of the protocol.  This can lead to issues when the endpoints break these
+assumptions.  For example, an implementor could assume that in TLS 1.3
+{{?RFC8446}}, if it observed the cleartext Server Name Indication (SNI)
+extension and the handshake succeeded, then the server must possess the
+private key for the corresponding TLS certificate.  That assumption can be
+broken by the TLS endpoints if they so choose, leading to misclassification
+of traffic by the intermediary.
+
+
 # Contention over Intermediation
 
 The IETF has a long history of dealing with different forms of intermediation
