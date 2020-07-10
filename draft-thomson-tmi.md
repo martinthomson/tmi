@@ -32,10 +32,7 @@ informative:
 This document proposes a set of principles for designing protocols with rules
 for intermediaries.  The goal of these principles is to limit the ways in which
 intermediaries can produce undesirable effects and to protect the useful
-functions that intermediaries legitimately provide.  These principles aim to
-establish clarity regarding the role of intermediaries in protocols and produce
-protocols with controls on intermediary actions that increase confidence in
-intermediary participation.
+functions that intermediaries legitimately provide.
 
 --- middle
 
@@ -66,13 +63,11 @@ might involve the participation of intermediaries:
 * Avoid intermediation ({{prefer-services}})
 * Limit the entities that can intermediate ({{limit-participants}})
 * Limit what intermediaries can do ({{limit-capabilities}})
-* Limit what intermediaries can see ({{limit-info}})
-* Limit what intermediaries can change ({{limit-changes}})
 
 These principles produce more robust protocols with better privacy and security
 properties.  These also limit the secondary costs associated with
-intermediation.  Adherence with these principles will ensure clarity about the
-role of important intermediation functions.
+intermediation.  Adherence with these principles will ensure that there is
+clarity about the roles and responsibilities of protocol participants.
 
 
 # What is Meant by Intermediary
@@ -131,9 +126,9 @@ intermediary.
 This does not imply that all intermediaries have exclusive control over access
 to resources.  A router might provide access to other networks, but similar
 access might be obtained via a different route.  The same web content might be
-provided by multiple CDNs.  Multiple DNS servers can provide answers to the same
-questions.  The ability to access the same capabilities from multiple entities
-contributes greatly to the robustness of a system.
+provided by multiple CDNs.  Multiple DNS resolvers can provide answers to the
+same queries.  The ability to access the same capabilities from multiple
+entities contributes greatly to the robustness of a system.
 
 Intermediaries often provide capabilities that benefit from economies of scale
 by providing a service that aggregates demand from multiple individuals.  For
@@ -157,18 +152,22 @@ range of advantages in performance, scalability, privacy, and other areas that
 accrue to the system as a whole.
 
 
-# Intermediation Enables Scaling Of Control
+# Intermediation Enables Scaling Of Control {#scale}
 
 The scale at which intermediaries operate means that they are often seen as
 effective control points in the systems that depend on them.  An action by an
 intermediary can affect all who communicate using that intermediary.
 
+The goal of some intermediary deployments is to effect a policy, relying on the
+ability of a well-placed intermediary to affect multiple protocol interactions
+and participants.
+
 The ability of an intermediary to affect a large number of network users can be
 an advantage or vulnerability, depending on perspective.  For instance, network
 intermediaries have been used to distribute warnings of impending natural
 disasters like fire, flood, or earthquake, which save lives and property.  In
-contrast, control over large-scale communications can enable censorship,
-misinformation, or pervasive monitoring {{?RFC7258}}.
+contrast, control over large-scale communications can enable censorship
+{{?RFC7754}}, misinformation, or pervasive monitoring {{?RFC7258}}.
 
 The scale at which an intermediary operates therefore enables amplification of
 any power available to that intermediary.  Though it is clear that the morality
@@ -202,25 +201,34 @@ CHOKEPOINTS=I-D.iab-chokepoints).
 The ability to act as intermediary can offer more options than a service that is
 called upon to provide information.  Sometimes those advantages are significant
 enough to justify the use of intermediation over alternative designs.  However,
-the use of an intermediary also introduces costs; see {{limit-participants}}.
+the use of an intermediary also introduces costs.
 
-The use of transparent or interception proxies in HTTP {{?HTTP=RFC7230}} is an
-example of a practice that has fallen out of common usage due to increased use
-of HTTPS.  Use of transparent proxies was once widespread with a wide variety of
-reasons for their deployment.   However, transparent proxies were involved in
-many abuses, such as unwanted transcoding of content and insertion of
-identifiers to the detriment of individual privacy.
+The use of transparent or interception proxies in HTTP
+{{?HTTP=I-D.ietf-httpbis-semantics}} is an example of a practice that has
+fallen out of common usage due to increased use of HTTPS.  Use of transparent
+proxies was once widespread with a wide variety of reasons for their
+deployment.  However, transparent proxies were involved in many abuses, such as
+unwanted transcoding of content and insertion of identifiers to the detriment
+of individual privacy.
+
+Introducing intermediaries is often done with the intent of avoiding disruption
+to protocols that operate a higher layer of the stack.  However, network
+layering abstractions often leak, meaning that the effects of the
+intermediation can be observed.  Where those effects are undesirable,
+intermediation can be difficult to detect or remedy.
+
+The insertion of an intermediary in a protocol imposes other costs on other
+protocol participants; see {{?EROSION=I-D.hildebrand-middlebox-erosion}} or
+{{?MIDDLEBOX=RFC3234}}.  In particular, poor implementations of intermediaries
+can be detrimental to successful protocol operation.
 
 As an intermediary is another participant in a protocol, they can make
 interactions less robust.  Unwanted intermediaries are also responsible for
-ossification - the inability to deploy new protocol mechanisms - in popular
-protocols like TCP {{?TCP-EXTEND=DOI.10.1145/2068816.2068834}}.
-
-The insertion of an intermediary in a protocol can impose a number of costs on
-other protocol participants; see {{?EROSION=I-D.hildebrand-middlebox-erosion}}
-or {{?MIDDLEBOX=RFC3234}}.  In particular, intermediaries can limit how other
-participants are able to use new protocol features; see Section 2.3 of
-{{?USE-IT=I-D.iab-use-it-or-lose-it}}.
+ossification: the inability to deploy new protocol mechanisms; see Section 2.3
+of {{?USE-IT=I-D.iab-use-it-or-lose-it}}.  For example, measurement of TCP
+showed that the protocol has poor prospects for extensibility due to widespread
+use - and poor implementation - of intermediaries
+{{?TCP-EXTEND=DOI.10.1145/2068816.2068834}}.
 
 
 # Contention over Intermediation
@@ -279,11 +287,15 @@ that limitations on participants are enforced.
 
 Entities should not be made protocol participants without good cause.
 
-Where functions can provided by means other than intermediation, this is
-preferable.  If there is a need for information, querying a service for that
-information is preferable to adding an intermediary. Similarly, direct
-invocation of service to perform an action is better than involving that service
-as a participant in the protocol.
+Designing protocols to use services rather than intermediaries ensures that the
+extent of the responsibilities of protocol participants is more clearly
+defined.  Where functions can provided by means other than intermediation, the
+design should prefer that alternative.
+
+If there is a need for information, defining a means for querying a service for
+that information is preferable to adding an intermediary.  Similarly, direct
+invocation of service to perform an action is better than involving that
+service as a participant in the protocol.
 
 Involving an entity as an intermediary can greatly increase the degree to which
 that entity becomes a dependency.  For example, it might be necessary to
@@ -295,17 +307,17 @@ a specific task.
 
 Using discrete services is not always the most performant architecture as
 additional network interactions can add to overheads.  The cost of these
-overheads need to be weighed against the ongoing cost that intermediation might
-incur.
+overheads need to be weighed against the recurrent costs from involving
+intermediaries.
 
-This is analogous to the software design principle that recommends a preference
-for composition over inheritance {{PATTERNS}}.
+Preferring services is analogous to the software design principle that
+recommends a preference for composition over inheritance {{PATTERNS}}.
 
 
-## Limit Protocol Participation {#limit-participants}
+## Deliberately Select Protocol Participants {#limit-participants}
 
-Protocol participants should have an understanding of what other participants
-might be present.
+Protocol participants should know what other participants they might be
+interacting with.
 
 Protocols that permit the involvement of an intermediary need to do so
 intentionally and provide measures that prevent the addition of unwanted
@@ -326,7 +338,7 @@ of tools like encryption and authentication protection; see
 {{limit-capabilities}}.
 
 
-## Limit Intermediary Capabilities {#limit-capabilities}
+## Limit Capabilities of Protocol Participants {#limit-capabilities}
 
 Protocol participants should be able to limit the capabilities conferred to
 other protocol participants.
@@ -342,31 +354,28 @@ impractical, integrity protection can be used to ensure that data origin
 authentication is preserved; see {{limit-changes}}.
 
 
-## Limit Information Exposure {#limit-info}
+### Limit Information Exposure {#limit-info}
 
 Protocol participants should only have access to the information they need to
 perform their designated function.
 
 Protocol designs based on a principle of providing the minimum information
 necessary have several benefits.  In addition to requiring smaller messages, or
-fewer exchanges, reducing information provides privacy guarantees.
+fewer exchanges, reducing information provides greater control over exposure of
+information.  This has privacy benefits.
 
 Where an intermediary needs to carry information that it has no need to access,
 protocols should use encryption to ensure that the intermediary cannot access
 that information.
 
-Moving from a protocol in which there are two participants (such as
-{{?TLS=RFC8446}}) to a setting with more than two participants while preserving
-confidentiality requires mechanisms that are considerably more complex and
-computationally expensive.
 
-
-## Limit Permitted Interactions {#limit-changes}
+### Limit Permitted Interactions {#limit-changes}
 
 Signals generated by protocol participants should be correctly attributed.
 
-Where an intermediary is required to access information, preventing the use of
-encryption, integrity protection should be used to prevent modification.
+Providing information for intermediaries using signals that are separate from
+other protocol signaling is preferable {{?RFC8558}}.  In addition, integrity
+protection should be applied to these signals to prevent modification.
 
 Where an intermediary needs to communicate with other protocol participants,
 ensuring that these signals are correctly attributed to the intermediary are
@@ -375,10 +384,27 @@ important.
 Authentication is the best means of ensuring signals generated by protocol
 participants are correctly attributed.  In some cases, particularly protocols
 that are primarily two-party protocols, it might be sufficient to allow the
-signal to be attributed to _any_ intermediary.  This is the case for the ECN
-signal {{?ECN=RFC3168}} or ICMP {{?ICMP=RFC0792}}, both of which are assumed to
-be provided by elements on the network path (though limited mechanisms exist to
-verify that this is the case for ICMP).
+signal to be attributed to _any_ intermediary.  This is the case in QUIC
+{{?QUIC=I-D.ietf-quic-transport}} for ECN {{?ECN=RFC3168}} and ICMP
+{{?ICMP=RFC0792}}, both of which are assumed to be provided by elements on the
+network path.  Limited mechanisms exist to verify that these signals originate
+from path elements.
+
+
+### Costs of Technical Constraints
+
+Moving from a protocol in which there are two participants (such as
+{{?TLS=RFC8446}}) to a setting with more than two participants while preserving
+confidentiality requires mechanisms that are considerably more complex and
+computationally expensive.
+
+More generally, the application of technical measures to control how
+intermediaries participate in a protocol incur costs that manifest in several
+ways.  Protocols are more difficult to design; implementations are larger and
+more complex; and deployments might suffer from added operational costs, higher
+computation loads, and more bandwidth consumption.  These costs are reflective
+of the true cost of involving additional entities in protocols.  In protocols
+without measures has historically been borne by other protocol participants.
 
 
 # Applying Non-Technical Constraints
@@ -392,7 +418,7 @@ infeasible or impossible.
 The use of authentication allows for other forms of control on intermediaries.
 Auditing systems or other mechanisms for ensuring accountability can use
 authentication information.  Authentication can also enable the use of legal,
-social, or other types of control that might avoid any shortfall in technical
+social, or other types of control that might cover any shortfall in technical
 measures.
 
 
@@ -465,5 +491,8 @@ This document has no IANA actions.
 This document is merely an attempt to codify existing practice.  Practice that
 is inspired, at least in part, by prior work, including {{?RFC3552}} and
 {{?RFC3724}} which both advocate for clearer articulation of trust boundaries.
+
+Eric Rescorla and David Schinazi are acknowledged for their contributions of
+thought, review, and text.
 
 
