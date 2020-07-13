@@ -10,7 +10,7 @@ pi: [toc, sortrefs, symrefs, docmapping]
 
 author:
  -
-    ins: M. Thomson
+    ins: M.  Thomson
     name: Martin Thomson
     org: Mozilla
     email: mt@lowentropy.net
@@ -21,10 +21,10 @@ informative:
     title: "Design Patterns: Elements of Reusable Object-Oriented Software"
     date: 1994
     author:
-      - ins: E. Gamma
-      - ins: R. Helm
-      - ins: R. Johnson
-      - ins: J. Vlissides
+      - ins: E.  Gamma
+      - ins: R.  Helm
+      - ins: R.  Johnson
+      - ins: J.  Vlissides
 
 
 --- abstract
@@ -44,16 +44,16 @@ is best served by moving higher-level functions to endpoints is a key insight
 in system design, but also a key element of the success of the Internet.
 
 This does not mean that the Internet avoids a relying on functions provided by
-entities in the network. While the principle establishes that some functions
+entities in the network.  While the principle establishes that some functions
 are best provided by endsystems, this does not exclude all intermediary
-functions. Some level of function in the network is necessary, or else there
-would be no network. The ways in which intermediaries can assist protocol
+functions.  Some level of function in the network is necessary, or else there
+would be no network.  The ways in which intermediaries can assist protocol
 endpoints are numerous and constantly evolving.
 
 This document explores some of the ways in which intermediaries make both
-essential and valuable contributions to the function of the system. Problems
+essential and valuable contributions to the function of the system.  Problems
 arise when the interests of intermediaries are poorly aligned with those of
-endpoints. This can result in systemic costs and tension. Addressing those
+endpoints.  This can result in systemic costs and tension.  Addressing those
 issues can be difficult.
 
 This document proposes the following design principles for the protocols that
@@ -64,8 +64,8 @@ might involve the participation of intermediaries:
 * Limit what intermediaries can do ({{limit-capabilities}})
 
 These principles aim to provide clarity about the roles and responsibilities of
-protocol participants. These principles produce more robust protocols with
-better privacy and security properties. These also limit the secondary costs
+protocol participants.  These principles produce more robust protocols with
+better privacy and security properties.  These also limit the secondary costs
 associated with intermediation.
 
 
@@ -77,11 +77,11 @@ instead acts to facilitate communications.
 
 An intermediary need not be explicitly present at the request of a participant.
 
-Intermediaries exist at all layers of the stack. A router is an intermediary
-that acts at the network layer to forward packets. A TURN relay {{?RFC8155}}
+Intermediaries exist at all layers of the stack.  A router is an intermediary
+that acts at the network layer to forward packets.  A TURN relay {{?RFC8155}}
 provides similar forwarding capability for UDP in the presence of a network
 address translator (NAT) - a different type of intermediary that provides the
-ability to share a limited supply of addresses. At higher layers of the stack,
+ability to share a limited supply of addresses.  At higher layers of the stack,
 group messaging servers intermediate the exchange of messages within groups of
 people; a conference focus aids the sending of media group real-time
 communications; and a social network intermediates communication and
@@ -119,10 +119,10 @@ beyond what is available for participants as conferences grow in size.
 # Intermediation Is Useful
 
 That intermediaries provide access to valuable resources does not imply that
-all intermediaries have exclusive control over access to resources. A router
+all intermediaries have exclusive control over access to resources.  A router
 might provide access to other networks, but similar access might be obtained
-via a different route. The same web content might be provided by multiple CDNs.
-Multiple DNS resolvers can provide answers to the same queries. The ability to
+via a different route.  The same web content might be provided by multiple CDNs.
+Multiple DNS resolvers can provide answers to the same queries.  The ability to
 access the same capabilities from multiple entities contributes greatly to the
 robustness of a system.
 
@@ -135,10 +135,10 @@ scale at which a CDN operates means that this capacity is likely available to
 it.  Or the value of a social network is in part due to the existing
 participation of other people.
 
-Aggregation also provides other potential benefits. For instance, caching of
-shared information can allow for performance advantages. From an efficiency
+Aggregation also provides other potential benefits.  For instance, caching of
+shared information can allow for performance advantages.  From an efficiency
 perspective, the use of shared resources might allow load to be more evenly
-distributed over time. For privacy, individual activity might be mixed with the
+distributed over time.  For privacy, individual activity might be mixed with the
 activity of many others, thereby making it difficult to isolate that activity.
 
 The ability of an intermediary to operate at scale can therefore provide a
@@ -149,7 +149,7 @@ areas.
 # Intermediation Enables Scaling Of Control {#scale}
 
 An action by an intermediary can affect all who communicate using that
-intermediary. For an intermediary that operates at scale, this means it can be
+intermediary.  For an intermediary that operates at scale, this means it can be
 seen as an effective control point.
 
 The goal of some intermediary deployments is to effect a policy, relying on the
@@ -172,7 +172,7 @@ vest in intermediaries to be abused or subverted.
 # Incentive Misalignment at Scale {#incentives}
 
 A dependency on an intermediary can represent a risk to those that take the
-dependency. The incentives and motives of intermediaries can be important to
+dependency.  The incentives and motives of intermediaries can be important to
 consider.
 
 For instance, the information necessary for an intermediary to performs its
@@ -206,20 +206,20 @@ unwanted transcoding of content and insertion of identifiers to the detriment
 of individual privacy.
 
 Introducing intermediaries is often done with the intent of avoiding disruption
-to protocols that operate a higher layer of the stack. However, network
+to protocols that operate a higher layer of the stack.  However, network
 layering abstractions often leak, meaning that the effects of the
-intermediation can be observed. Where those effects cause problems, it can be
+intermediation can be observed.  Where those effects cause problems, it can be
 difficult to detect and fix those problems.
 
 The insertion of an intermediary in a protocol imposes other costs on other
 protocol participants; see {{?EROSION=I-D.hildebrand-middlebox-erosion}} or
 {{?MIDDLEBOX=RFC3234}}.  In particular, poor implementations of intermediaries
-can be detrimental to successful protocol operation.
+can adversely affect protocol operation.
 
 As an intermediary is another participant in a protocol, they can make
-interactions less robust.  Unwanted intermediaries are also responsible for
-ossification: the inability to deploy new protocol mechanisms; see Section 2.3
-of {{?USE-IT=I-D.iab-use-it-or-lose-it}}.  For example, measurement of TCP
+interactions less robust.  Intermediaries can also be responsible for
+ossification, or the inability to deploy new protocol mechanisms; see Section
+2.3 of {{?USE-IT=I-D.iab-use-it-or-lose-it}}.  For example, measurement of TCP
 showed that the protocol has poor prospects for extensibility due to widespread
 use - and poor implementation - of intermediaries
 {{?TCP-EXTEND=DOI.10.1145/2068816.2068834}}.
@@ -259,7 +259,7 @@ deployments of great diversity might render a single clear outcome impossible
 for an established protocol.
 
 
-# Proposed Principles
+# Proposed Principles {#principles}
 
 Many problems caused by intermediation are the result of intermediaries that
 are introduced without the involvement of protocol endpoints.  Limiting the
@@ -279,7 +279,8 @@ necessary.  It is expected that protocols will need to use cryptography for
 this.
 
 New protocols should identify what intermediation is anticipated and provide
-technical mechanisms to guarantee conformance.
+technical mechanisms to guarantee conformance.  Modifying existing protocols to
+follow these principles could be difficult, but worthwhile.
 
 
 ## Prefer Services to Intermediaries {#prefer-services}
@@ -376,16 +377,16 @@ An action should only be taken based on signals from protocol participants that
 are authorized to request that action.
 
 Where an intermediary needs to communicate with other protocol participants,
-ensure that these signals are attributed to an intermediary. Authentication is
+ensure that these signals are attributed to an intermediary.  Authentication is
 the best means of ensuring signals generated by protocol participants are
 correctly attributed.  Authentication informs decisions protocol participants
 make about actions they take.
 
 In some cases, particularly protocols that are primarily two-party protocols,
 it might be sufficient to allow the signal to be attributed to any
-intermediary. This is the case in QUIC {{?QUIC=I-D.ietf-quic-transport}} for
+intermediary.  This is the case in QUIC {{?QUIC=I-D.ietf-quic-transport}} for
 ECN {{?ECN=RFC3168}} and ICMP {{?ICMP=RFC0792}}, both of which are assumed to
-be provided by elements on the network path. Limited mechanisms exist to
+be provided by elements on the network path.  Limited mechanisms exist to
 authenticate these as signals that originate from path elements, informing
 actions taken by endpoints.
 
@@ -398,10 +399,10 @@ expensive to implement and deploy.
 
 More generally, the application of technical measures to control how
 intermediaries participate in a protocol incur costs that manifest in several
-ways. Protocols are more difficult to design; implementations are larger and
+ways.  Protocols are more difficult to design; implementations are larger and
 more complex; and deployments might suffer from added operational costs, higher
-computation loads, and more bandwidth consumption. These costs are reflective
-of the true cost of involving additional entities in protocols. In protocols
+computation loads, and more bandwidth consumption.  These costs are reflective
+of the true cost of involving additional entities in protocols.  In protocols
 without technical measures to limit participation, these costs have
 historically been borne by other protocol participants.
 
@@ -444,9 +445,9 @@ deployed.  In each case the protocols in question provided no technical controls
 or only limited technical controls that prevent the addition of intermediaries.
 This allowed the deployment of techniques that involved the insertion of
 intermediaries into sessions without permission or knowledge of other protocol
-participants. By adding controls like encryption, these practices are disrupted.
-Overall, the advantages derived from having greater control and knowledge of
-other protocol participants outweighs these costs.
+participants.  By adding controls like encryption, these practices are
+disrupted. Overall, the advantages derived from having greater control and
+knowledge of other protocol participants outweighs these costs.
 
 The process of identifying critical functions for intermediaries is ongoing.
 There are three potential classes of outcome of these discussion:
@@ -469,9 +470,9 @@ to retrofit controls on existing protocol deployments.
 
 # Security Considerations
 
-Controlling the level of participation and access intermediaries have is in part
-a security question.  It is also fundamentally an application of a security
-principle: namely the principle of least privilege
+Controlling the level of participation and access intermediaries have is a
+security question.  The principles in {{principles}} are fundamentally an
+application of a security principle: namely the principle of least privilege
 {{?LEAST-PRIVILEGE=DOI.10.1145/361011.361067}}.
 
 Lack of proper controls on intermediaries protocols has been the source of
