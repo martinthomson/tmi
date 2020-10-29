@@ -1,3 +1,4 @@
+GITHUB_API_TOKEN := $(GITHUB_ACTOR):$(GITHUB_TOKEN)
 LIBDIR := lib
 include $(LIBDIR)/main.mk
 
@@ -12,7 +13,8 @@ endif
 
 test::
 	@echo 'SOURCE_BRANCH="$(SOURCE_BRANCH)"'
-	@echo 'DEFAULT_BRANCH="$(DEFAULT_BRANCH)"'
+	@echo 'DEFAULT_BRANCH(make)="$(DEFAULT_BRANCH)"'
+	@echo 'DEFAULT_BRANCH(shell)="$$DEFAULT_BRANCH"'
 	@echo 'GITHUB_REF="$(GITHUB_REF)"'
 	@echo 'GITHUB_USER="$(GITHUB_USER)"'
 	@echo 'GITHUB_REPO="$(GITHUB_REPO)"'
