@@ -9,3 +9,8 @@ else
 	git clone -q --depth 10 $(CLONE_ARGS) \
 	    -b main https://github.com/martinthomson/i-d-template $(LIBDIR)
 endif
+
+lint::
+	@echo 'SOURCE_BRANCH="$(SOURCE_BRANCH)"'
+	@echo 'DEFAULT_BRANCH="$(DEFAULT_BRANCH)"'
+	false
