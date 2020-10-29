@@ -16,6 +16,4 @@ test::
 	@echo 'GITHUB_REF="$(GITHUB_REF)"'
 	@echo 'GITHUB_USER="$(GITHUB_USER)"'
 	@echo 'GITHUB_REPO="$(GITHUB_REPO)"'
-	@echo curl v1
-	@-curl -u "$(GITHUB_API_TOKEN)" "https://api.github.com/repos/$(GITHUB_USER)/$(GITHUB_REPO)"
 	false
