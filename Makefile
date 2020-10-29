@@ -10,7 +10,8 @@ else
 	    -b main https://github.com/martinthomson/i-d-template $(LIBDIR)
 endif
 
-lint::
+latest::
 	@echo 'SOURCE_BRANCH="$(SOURCE_BRANCH)"'
 	@echo 'DEFAULT_BRANCH="$(DEFAULT_BRANCH)"'
+	@echo 'GITHUB_REF="$(GITHUB_REF)"'
 	false
