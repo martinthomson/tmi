@@ -11,10 +11,10 @@ else
 endif
 
 test::
-	@echo 'SOURCE_BRANCH="$(SOURCE_BRANCH)"'
-	@echo 'DEFAULT_BRANCH(make)="$(DEFAULT_BRANCH)"'
-	@echo 'DEFAULT_BRANCH(shell)="'"$$DEFAULT_BRANCH"'"'
 	@echo 'GITHUB_REF="$(GITHUB_REF)"'
 	@echo 'GITHUB_USER="$(GITHUB_USER)"'
 	@echo 'GITHUB_REPO="$(GITHUB_REPO)"'
+	@echo 'SOURCE_BRANCH="$(SOURCE_BRANCH)"'
+	@echo 'DEFAULT_BRANCH(make)="$(DEFAULT_BRANCH)"'
+	@echo 'DEFAULT_BRANCH(shell)="'"$$DEFAULT_BRANCH"'"'
 	false
