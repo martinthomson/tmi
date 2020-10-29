@@ -41,7 +41,6 @@ jobs:
     - name: "Build Drafts"
       uses: martinthomson/i-d-template@v1
       with:
-        make: test
         token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: "Update GitHub Pages"
