@@ -16,10 +16,6 @@ test::
 	@echo 'GITHUB_REF="$(GITHUB_REF)"'
 	@echo 'GITHUB_USER="$(GITHUB_USER)"'
 	@echo 'GITHUB_REPO="$(GITHUB_REPO)"'
-	@echo default-branch
-	@-$(LIBDIR)/default-branch.py $(GITHUB_USER) $(GITHUB_REPO) $(GITHUB_API_TOKEN)
-	@echo default-branch with push token
-	@-$(LIBDIR)/default-branch.py $(GITHUB_USER) $(GITHUB_REPO) $(GITHUB_PUSH_TOKEN)
 	@echo curl v1
-	@-curl -u "$(GITHUB_PUSH_TOKEN)" "https://api.github.com/repos/$(GITHUB_USER)/$(GITHUB_REPO)"
+	@-curl -u "$(GITHUB_API_TOKEN)" "https://api.github.com/repos/$(GITHUB_USER)/$(GITHUB_REPO)"
 	false
