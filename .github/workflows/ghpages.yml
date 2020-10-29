@@ -40,6 +40,8 @@ jobs:
 
     - name: "Build Drafts"
       uses: martinthomson/i-d-template@v1
+      with:
+        make: test
 
     - name: "Update GitHub Pages"
       uses: martinthomson/i-d-template@v1
