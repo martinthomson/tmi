@@ -16,8 +16,6 @@ test::
 	@echo 'GITHUB_REF="$(GITHUB_REF)"'
 	@echo 'GITHUB_USER="$(GITHUB_USER)"'
 	@echo 'GITHUB_REPO="$(GITHUB_REPO)"'
-	git rev-parse --abbrev-ref origin/HEAD
-	git rev-parse --abbrev-ref HEAD
 	@echo default-branch
 	@-$(LIBDIR)/default-branch.py $(GITHUB_USER) $(GITHUB_REPO) $(GITHUB_API_TOKEN)
 	@echo default-branch with push token
