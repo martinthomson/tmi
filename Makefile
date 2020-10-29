@@ -14,4 +14,6 @@ latest::
 	@echo 'SOURCE_BRANCH="$(SOURCE_BRANCH)"'
 	@echo 'DEFAULT_BRANCH="$(DEFAULT_BRANCH)"'
 	@echo 'GITHUB_REF="$(GITHUB_REF)"'
+	git rev-parse --abbrev-ref origin/HEAD
+	git rev-parse --abbrev-ref HEAD
 	false
