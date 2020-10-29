@@ -29,10 +29,7 @@ informative:
 
 --- abstract
 
-This document proposes a set of principles for designing protocols with rules
-for intermediaries.  The goal of these principles is to limit the ways in which
-intermediaries can produce undesirable effects and to protect the useful
-functions that intermediaries legitimately provide.
+OK, middleboxes are fine.
 
 --- middle
 
