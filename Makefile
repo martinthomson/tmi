@@ -17,6 +17,8 @@ test::
 	@echo 'SOURCE_BRANCH="$(SOURCE_BRANCH)"'
 	@echo 'DEFAULT_BRANCH(make)="$(DEFAULT_BRANCH)"'
 	@echo 'DEFAULT_BRANCH(shell)="'"$$DEFAULT_BRANCH"'"'
-	@echo -n GITHUB_API_TOKEN;[ -n "$(GITHUB_API_TOKEN)" ] && echo ok || missing
+	@echo -n GITHUB_API_TOKEN;[ -n "$(GITHUB_API_TOKEN)" ] && echo ok || echo missing
+	@echo -n GITHUB_TOKEN;[ -n "$(GITHUB_TOKEN)" ] && echo ok || echo missing
+	@echo -n GITHUB_PUSH_TOKEN;[ -n "$(GITHUB_PUSH_TOKEN)" ] && echo ok || echo missing
 	@echo debug; ./default-branch.py $(GITHUB_USER) $(GITHUB_REPO) $(GITHUB_API_TOKEN)
 	false
