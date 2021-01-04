@@ -1,0 +1,164 @@
+{
+  "magic": "E!vIA5L86J2I",
+  "timestamp": "2020-12-20T00:39:58.815302+00:00",
+  "repo": "martinthomson/tmi",
+  "labels": [
+    {
+      "name": "bug",
+      "description": "Something isn't working",
+      "color": "d73a4a"
+    },
+    {
+      "name": "documentation",
+      "description": "Improvements or additions to documentation",
+      "color": "0075ca"
+    },
+    {
+      "name": "duplicate",
+      "description": "This issue or pull request already exists",
+      "color": "cfd3d7"
+    },
+    {
+      "name": "enhancement",
+      "description": "New feature or request",
+      "color": "a2eeef"
+    },
+    {
+      "name": "help wanted",
+      "description": "Extra attention is needed",
+      "color": "008672"
+    },
+    {
+      "name": "good first issue",
+      "description": "Good for newcomers",
+      "color": "7057ff"
+    },
+    {
+      "name": "invalid",
+      "description": "This doesn't seem right",
+      "color": "e4e669"
+    },
+    {
+      "name": "question",
+      "description": "Further information is requested",
+      "color": "d876e3"
+    },
+    {
+      "name": "wontfix",
+      "description": "This will not be worked on",
+      "color": "ffffff"
+    }
+  ],
+  "issues": [],
+  "pulls": [
+    {
+      "number": 1,
+      "id": "MDExOlB1bGxSZXF1ZXN0NDQ0MTU5NzMy",
+      "title": "Ekr edits",
+      "url": "https://github.com/martinthomson/tmi/pull/1",
+      "state": "MERGED",
+      "author": "ekr",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2020-07-03T18:27:15Z",
+      "updatedAt": "2020-07-06T05:52:23Z",
+      "baseRepository": "martinthomson/tmi",
+      "baseRefName": "main",
+      "baseRefOid": "357c87c7fb6c10fb442351440c0fecbc97b4a910",
+      "headRepository": "ekr/tmi",
+      "headRefName": "ekr_edits",
+      "headRefOid": "b06d5f63665c6858c3f72aec24c07a8e47cb5d6f",
+      "closedAt": "2020-07-06T05:52:23Z",
+      "mergedAt": "2020-07-06T05:52:23Z",
+      "mergedBy": "martinthomson",
+      "mergeCommit": {
+        "oid": "3bb7b7094635179833dd96353caa60cb93f6e0e2"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 2,
+      "id": "MDExOlB1bGxSZXF1ZXN0NDQ0NTg1ODA1",
+      "title": "The title is wrong",
+      "url": "https://github.com/martinthomson/tmi/pull/2",
+      "state": "CLOSED",
+      "author": "martinthomson",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2020-07-06T07:13:42Z",
+      "updatedAt": "2020-07-10T03:46:57Z",
+      "baseRepository": "martinthomson/tmi",
+      "baseRefName": "main",
+      "baseRefOid": "3bb7b7094635179833dd96353caa60cb93f6e0e2",
+      "headRepository": "unicorn-wg/tmi",
+      "headRefName": "unicorn",
+      "headRefOid": "b2b6674186b70f1c7fdf8e247f062bfacdbbdbef",
+      "closedAt": "2020-07-10T03:46:57Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 3,
+      "id": "MDExOlB1bGxSZXF1ZXN0NDQ2NTYxNDcw",
+      "title": "Proposal to add a paragraph about assumptions",
+      "url": "https://github.com/martinthomson/tmi/pull/3",
+      "state": "OPEN",
+      "author": "DavidSchinazi",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "I figured it would be easier to phrase this as a PR than an issue, but I'm happy to file an issue if you prefer. I think it would be nice for this document to mention that any intermediation based on assumptions runs the risk of breaking when the endpoints don't follow said assumptions.",
+      "createdAt": "2020-07-09T01:16:02Z",
+      "updatedAt": "2020-07-09T19:39:38Z",
+      "baseRepository": "martinthomson/tmi",
+      "baseRefName": "main",
+      "baseRefOid": "669512b613e0c37bdc8f49c6bad233773f0be2e5",
+      "headRepository": "DavidSchinazi/tmi",
+      "headRefName": "incorrect_intermediation",
+      "headRefOid": "551b9d8f6316cf1db45b9fcfc89e8f952e536597",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "DavidSchinazi",
+          "authorAssociation": "NONE",
+          "body": "That makes sense. Feel free to change this as you see fit!",
+          "createdAt": "2020-07-09T19:38:50Z",
+          "updatedAt": "2020-07-09T19:38:50Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NDQ1MjMzODM3",
+          "commit": {
+            "abbreviatedOid": "6137b76"
+          },
+          "author": "martinthomson",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "I need to think about how to integrate this (the TLS example is topical, but it might not be the best one to illustrate the case - because ECH is going to retain that property, it might be good to find an example where a bad assumption was demonstrably false).  The example of \"QUIC starts with a 0x07 octet\" one is a possible example.",
+          "createdAt": "2020-07-09T01:38:20Z",
+          "updatedAt": "2020-07-09T01:40:23Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "```suggestion\r\n```\r\n\r\nThis is a natural follow-on to the text that precedes it.",
+              "createdAt": "2020-07-09T01:38:20Z",
+              "updatedAt": "2020-07-09T19:38:25Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
