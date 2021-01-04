@@ -207,9 +207,9 @@ of individual privacy.
 
 Introducing intermediaries is often done with the intent of avoiding disruption
 to protocols that operate a higher layer of the stack.  However, network
-layering abstractions often leak, meaning that the effects of the
-intermediation can be observed.  Where those effects cause problems, it can be
-difficult to detect and fix those problems.
+layering abstractions often leak, meaning that the effects of the intermediation
+can be observed.  Where those effects cause problems, it can be difficult to
+detect and fix those problems.
 
 The insertion of an intermediary in a protocol imposes other costs on other
 protocol participants; see {{?EROSION=I-D.hildebrand-middlebox-erosion}} or
@@ -278,9 +278,12 @@ The use of technical mechanisms to ensure that these principles are enforced is
 necessary.  It is expected that protocols will need to use cryptography for
 this.
 
-New protocols should identify what intermediation is anticipated and provide
-technical mechanisms to guarantee conformance.  Modifying existing protocols to
-follow these principles could be difficult, but worthwhile.
+New protocol designs therefore need to identify what intermediation is possible
+and what is desired.  Technical mechanisms to guarantee conformance, where
+possible, are highly recommended.
+
+Modifying existing protocols to follow these principles could be difficult, but
+worthwhile.
 
 
 ## Prefer Services to Intermediaries {#prefer-services}
@@ -311,6 +314,13 @@ additional network interactions can add to overheads.  The cost of these
 overheads need to be weighed against the recurrent costs from involving
 intermediaries.
 
+The contribution of an intermediary to performance and efficiency can involve
+trade-offs, such as those discussed in Section 2.3 of {{?E2E}}.  One
+consideration is the potential need for critical functions to be replicated in
+both intermediaries and endpoints, reducing efficiency.  Another is the
+possibility that an intermediary optimized for one application could degrade
+performance in other applications.
+
 Preferring services is analogous to the software design principle that
 recommends a preference for composition over inheritance {{PATTERNS}}.
 
@@ -333,7 +343,8 @@ This is an extension of the conclusion of {{?PATH-SIGNALS=RFC8558}}, which:
 > should be replaced with an explicit signal only when the signal's originator
 > intends that it be used by the network elements on the path.
 
-Applying principle likely requires the use of authentication and encryption.
+Applying this principle likely requires the use of authentication and
+encryption.
 
 
 ## Limit Capabilities of Intermediaries {#limit-capabilities}
@@ -367,8 +378,8 @@ protocols should use encryption to ensure that the intermediary cannot access
 that information.
 
 Providing information for intermediaries using signals that are separate from
-other protocol signaling is preferable {{?RFC8558}}.  In addition, integrity
-protection should be applied to these signals to prevent modification.
+other protocol signaling is preferable {{?PATH-SIGNALS}}.  In addition,
+integrity protection should be applied to these signals to prevent modification.
 
 
 ### Limit Permitted Interactions {#limit-changes}
@@ -388,7 +399,8 @@ intermediary.  This is the case in QUIC {{?QUIC=I-D.ietf-quic-transport}} for
 ECN {{?ECN=RFC3168}} and ICMP {{?ICMP=RFC0792}}, both of which are assumed to
 be provided by elements on the network path.  Limited mechanisms exist to
 authenticate these as signals that originate from path elements, informing
-actions taken by endpoints.
+actions taken by endpoints.  Consequently, the actions taken in response to
+these signals is limited.
 
 
 ### Costs of Technical Constraints
@@ -405,6 +417,12 @@ computation loads, and more bandwidth consumption.  These costs are reflective
 of the true cost of involving additional entities in protocols.  In protocols
 without technical measures to limit participation, these costs have
 historically been borne by other protocol participants.
+
+In general however, most protocols are able to reuse existing mechanisms for
+cryptographic protection, such as TLS {{?TLS}}.  Adopting something like TLS
+provides security properties that are well understood and analyzed.  Using a
+standardized solution enables use of well-tested implementations that include
+optimizations and other mitigations for these costs.
 
 
 # Applying Non-Technical Constraints
@@ -492,7 +510,7 @@ This document is merely an attempt to codify existing practice.  Practice that
 is inspired, at least in part, by prior work, including {{?RFC3552}} and
 {{?RFC3724}} which both advocate for clearer articulation of trust boundaries.
 
-Eric Rescorla and David Schinazi are acknowledged for their contributions of
-thought, review, and text.
+Jari Arkko, Eric Rescorla, and David Schinazi are acknowledged for their
+contributions of thought, review, and text.
 
 
