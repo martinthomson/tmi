@@ -164,16 +164,16 @@ contrast, control over large-scale communications can enable censorship
 {{?RFC7754}}, misinformation, or pervasive monitoring {{?RFC7258}}.
 
 Intermediaries that can affect many people can therefore be powerful agents for
-control.  Though it is clear that the morality of actions taken can be
-subjective, network users have to consider the potential for the power they
-vest in intermediaries to be abused or subverted.
+control.  While the morality of actions taken can be subjective, network users
+have to consider the potential for the power they vest in intermediaries to be
+abused or subverted.
 
 
 # Incentive Misalignment at Scale {#incentives}
 
-A dependency on an intermediary can represent a risk to those that take the
+A dependency on an intermediary represents a risk to those that take the
 dependency.  The incentives and motives of intermediaries can be important to
-consider.
+consider when choosing to use an intermediary.
 
 For instance, the information necessary for an intermediary to performs its
 function can often be used (or abused) for other purposes.  Even the simple
@@ -186,8 +186,12 @@ intermediaries and network users align reduce.  In particular, acceptance of
 the costs and risks associated with intermediation by a majority of network
 users does not mean that all users have the same expectations and requirements.
 This can be a significant problem if it becomes difficult to avoid or refuse
-participation by a particular intermediary; see (TODO
-CHOKEPOINTS=I-D.iab-chokepoints).
+participation by a particular intermediary.
+
+A dependency on an intermediary, particularly a technically or operationally
+challenging dependency, can reduce the number of viable choices of intermediary
+operators.  Reduced choice can lead to dependence on specific intermediaries,
+which reduces resilience and exposes endpoints to greater potential for abuse.
 
 
 # Forced and Unwanted Intermediation
@@ -230,13 +234,14 @@ use - and poor implementation - of intermediaries
 The IETF has a long history of dealing with different forms of intermediation
 poorly.
 
-Early use of NAT was loudly decried by some in the IETF community.  Indeed, the
-use of NAT was regarded as an unwanted intrusion by intermediaries.  The
-eventual recognition - not endorsement - of the existence of NAT
-({{?MIDDLEBOX=RFC3234}}, {{?NAT-ARCH=RFC2993}}) allowed the community to engage
-in the design protocols that properly handled NAT devices ({{?UNSAF=RFC3424}},
-{{?STUN=I-D.ietf-tram-stunbis}}) and to make recommendations for best practices
-{{?BEHAVE=RFC4787}}.
+A debate about the intent and purpose of IPv6 extension headers
+{{?IPv6=RFC8200}} occurred prior to the publication of RFC 8986
+{{?SRv6=RFC8986}} and it's PSP (Penultimate Segment Pop) mode.  Here, the use of
+extension headers by entities other than the communication endpoints -- that is,
+intermediaries -- was contested.  As the purpose of this feature is to
+communicate routing information between intermediaries, this could be seen as a
+form of tunneling between the communicating routers that uses the ability of
+IPv6 intermediaries (or routers) to add or remove extension headers.
 
 Like HTTP, SIP {{?RFC3261}} defines a role for a proxy, which is a form of
 intermediary with limited ability to interact with the session that it
@@ -248,10 +253,7 @@ There are several ongoing debates in the IETF that are rooted in disagreement
 about the rule of intermediaries.  The interests of network-based
 devices - which are sometimes intermediaries - is fiercely debated in the
 context of TLS 1.3 {{?TLS=RFC8446}}, where the design renders certain practices
-obsolete.  Proposed uses of IPv6 header extensions in
-{{?SRv6NP=I-D.ietf-spring-srv6-network-programming}} called into question the
-extent to which header extensions are the exclusive domain of endpoints as
-opposed to being available to intermediaries.
+obsolete.
 
 It could be that the circumstances in each of these debates is different enough
 that there is no singular outcome.  The complications resulting from large-scale
