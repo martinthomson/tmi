@@ -70,11 +70,15 @@ associated with intermediation.
 
 # What is Meant by Intermediary
 
-A protocol intermediary is an element that participates in communications.  An
-intermediary is not the primary initiator or recipient of communications, but
-instead acts to facilitate communications.
+An intermediary is an element that participates in a protocol exchange.  An
+intermediary receives protocol units, such as packets or messages, and forwards
+the protocol units to other protocol participants.  An intermediary might
+make changes to protocol units or leave the content of the unit unchanged.
 
-An intermediary need not be explicitly present at the request of a participant.
+An intermediary often does not directly benefit from the protocol exchange, but
+instead acts to facilitate the exchange.  An intermediary often participates at
+the request of another participant in the protocol, which might be another
+intermediary.
 
 Intermediaries exist at all layers of the stack.  A router is an intermediary
 that acts at the network layer to forward packets.  A TURN relay {{?RFC8155}}
@@ -86,13 +90,18 @@ people; a conference focus aids the sending of media group real-time
 communications; and a social network intermediates communication and
 information sharing through the exchange of messages and formation of groups.
 
+An intermediary at one layer of the stack is often an endpoint for communication
+at a lower layer.  A Diameter peer {{?DIAMETER=RFC6733}} acts as an intermediary
+when it forwards requests to other peers.  However, a Diameter peer establishes
+connections to neighboring peers using TLS/TCP or DTLS/SCTP and acts as a
+endpoint for all of those protocols.
+
 It is possible to facilitate communication without being an intermediary.  The
 DNS provides information that is critical to locating and communicating with
 other Internet hosts, but it does so without intermediating those
-communications.  Thus, this definition of intermediary does not include services
-like the DNS.  That said, though the DNS as a service does not result in
-intermediation of other activities, there are roles for intermediaries within
-the DNS that fit this definition, such as recursive resolvers.
+communications.  Thus, this definition of intermediary does not necessarily
+include a service like the DNS.  Of course, the use of the DNS could involve
+engaging with intermediaries such as recursive resolvers.
 
 
 # Intermediation Is Essential
@@ -496,7 +505,9 @@ application of a security principle: namely the principle of least privilege
 {{?LEAST-PRIVILEGE=DOI.10.1145/361011.361067}}.
 
 Lack of proper controls on intermediaries protocols has been the source of
-significant security problems.
+significant security problems.  One key example is where protocols allow an
+intermediary to consume, modify, or generate protocol units in ways that are
+contrary to the interests of other protocol participants.
 
 
 # IANA Considerations
