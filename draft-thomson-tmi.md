@@ -10,7 +10,7 @@ pi: [toc, sortrefs, symrefs, docmapping]
 
 author:
  -
-    ins: M.  Thomson
+    ins: M. Thomson
     name: Martin Thomson
     org: Mozilla
     email: mt@lowentropy.net
@@ -21,10 +21,10 @@ informative:
     title: "Design Patterns: Elements of Reusable Object-Oriented Software"
     date: 1994
     author:
-      - ins: E.  Gamma
-      - ins: R.  Helm
-      - ins: R.  Johnson
-      - ins: J.  Vlissides
+      - ins: E. Gamma
+      - ins: R. Helm
+      - ins: R. Johnson
+      - ins: J. Vlissides
 
 
 --- abstract
@@ -514,5 +514,3 @@ is inspired, at least in part, by prior work, including {{?RFC3552}} and
 
 Jari Arkko, Eric Rescorla, and David Schinazi are acknowledged for their
 contributions of thought, review, and text.
-
-
