@@ -102,7 +102,7 @@ intermediary provides usually involves access to resources that would not
 otherwise be available.  For instance, the Internet does not function without
 routers that enable packets to reach other networks.
 
-Thus, there is some level of intermediation that is essential for the proper
+There is some level of intermediation that is essential for the proper
 functioning of the Internet.
 
 Scalable solutions to the introduction problem often depend on services that
@@ -151,16 +151,17 @@ An action by an intermediary can affect all who communicate using that
 intermediary.  For an intermediary that operates at scale, this means it can be
 seen as an effective control point.
 
-The goal of some intermediary deployments is to effect a policy, relying on the
-ability of a well-placed intermediary to affect multiple protocol interactions
-and participants.
+In addition to facilitating communications, some intermediary deployments aim to
+effect a policy. This relies on the ability of a well-placed intermediary to
+affect multiple protocol interactions and participants.
 
 The ability of an intermediary to affect a large number of network users can be
 an advantage or vulnerability, depending on perspective.  For instance, network
 intermediaries have been used to distribute warnings of impending natural
 disasters like fire, flood, or earthquake, which save lives and property.  In
 contrast, control over large-scale communications can enable censorship
-{{?RFC7754}}, misinformation, or pervasive monitoring {{?RFC7258}}.
+{{?RFC7754}}, misinformation {{?PARADOX=DOI.10.1080/21670811.2019.1623701}}, or
+pervasive monitoring {{?RFC7258}}.
 
 Intermediaries that can affect many people can therefore be powerful agents for
 control.  While the morality of actions taken can be subjective, network users
@@ -452,8 +453,8 @@ access.  Several documents have explored aspects of this in detail:
 
 * {{?RFC8517}} describes a broader set of practices;
 
-* {{?TSV-ENC=I-D.ietf-tsvwg-transport-encrypt}} explores the effect on
-  transport-layer intermediaries in more detail; and
+* {{?RFC9065}} explores the effect on transport-layer intermediaries in more
+  detail; and
 
 * {{?NS-IMPACT=I-D.ietf-opsec-ns-impact}} examines the effect of TLS on
   operational network security practices.
