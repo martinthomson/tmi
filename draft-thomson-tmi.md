@@ -77,8 +77,8 @@ make changes to protocol units or leave the content of the unit unchanged.
 
 An intermediary often does not directly benefit from the protocol exchange, but
 instead acts to facilitate the exchange.  An intermediary often participates at
-the request of another participant in the protocol, which might be another
-intermediary.
+the request of another participant in the protocol, which might be an endpoint
+or an intermediary.
 
 Intermediaries exist at all layers of the stack.  A router is an intermediary
 that acts at the network layer to forward packets.  A TURN relay {{?RFC8155}}
@@ -89,6 +89,13 @@ group messaging servers intermediate the exchange of messages within groups of
 people; a conference focus aids the sending of media group real-time
 communications; and a social network intermediates communication and
 information sharing through the exchange of messages and formation of groups.
+
+A person uses a networked computer as an intermediary for their communications
+with other people and computers.  This intermediation is essential, for users
+are unable to directly interact with a network.  Much of the guidance in this
+document does not apply to the relationship between users and user agents; see
+{{?RFC8890}}, Section {{Section 4.2 of ?RFC8890}}{: sectionFormat="bare"} in
+particular, for an examination of this topic.
 
 An intermediary at one layer of the stack is often an endpoint for communication
 at a lower layer.  A Diameter peer {{?DIAMETER=RFC6733}} acts as an intermediary
@@ -231,11 +238,10 @@ can adversely affect protocol operation.
 
 As an intermediary is another participant in a protocol, they can make
 interactions less robust.  Intermediaries can also be responsible for
-ossification, or the inability to deploy new protocol mechanisms; see Section
-2.3 of {{?USE-IT=I-D.iab-use-it-or-lose-it}}.  For example, measurement of TCP
-showed that the protocol has poor prospects for extensibility due to widespread
-use - and poor implementation - of intermediaries
-{{?TCP-EXTEND=DOI.10.1145/2068816.2068834}}.
+ossification, or the inability to deploy new protocol mechanisms; see {{Section
+2.3 of ?USE-IT=RFC9170}}.  For example, measurement of TCP showed that the
+protocol has poor prospects for extensibility due to widespread use - and poor
+implementation - of intermediaries {{?TCP-EXTEND=DOI.10.1145/2068816.2068834}}.
 
 
 # Contention over Intermediation
@@ -259,9 +265,9 @@ of Back-to-Back UA (B2BUA; {{?RFC7092}}) for reasons that effectively reduce to
 greater ability to implement control functions.
 
 There are several ongoing debates in the IETF that are rooted in disagreement
-about the rule of intermediaries.  The interests of network-based
-devices - which are sometimes intermediaries - is fiercely debated in the
-context of TLS 1.3 {{?TLS=RFC8446}}, where the design renders certain practices
+about the rule of intermediaries.  The interests of network-based devices --
+which sometimes act as TLS intermediaries -- is fiercely debated in the context
+of TLS 1.3 {{?TLS=RFC8446}}, where the design renders certain practices
 obsolete.
 
 It could be that the circumstances in each of these debates is different enough
