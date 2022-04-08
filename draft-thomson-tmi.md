@@ -450,9 +450,8 @@ access to information that can be used for more than its intended purpose.
 Applying strong technical constraints on how that information is used might be
 infeasible or impossible.
 
-The use of authentication allows for other forms of control on intermediaries.
-Auditing systems or other mechanisms for ensuring accountability can use
-authentication information.  Authentication can also enable the use of legal,
+Systems that audit the involvement in protocols can use authentication to
+improve accountability.  Authentication can enable the use of legal,
 social, or other types of control that might cover any shortfall in technical
 measures.
 
@@ -476,23 +475,25 @@ access.  Several documents have explored aspects of this in detail:
 
 In all these documents, the defining characteristic is the move from a system
 that lacked controls on participation to one in which technical controls are
-deployed.  In each case the protocols in question provided no technical controls
-or only limited technical controls that prevent the addition of intermediaries.
-This allowed the deployment of techniques that involved the insertion of
-intermediaries into sessions without permission or knowledge of other protocol
-participants.  By adding controls like encryption, these practices are
-disrupted. Overall, the advantages derived from having greater control and
+employed.  In each case, the protocols in question provided little or no
+technical controls that prevented the addition of intermediaries.  This allowed
+for the insertion of intermediaries into sessions without permission or
+knowledge of other protocol participants.  Adding controls like encryption
+and authentication disrupts these practices.
+
+Overall, the advantages derived from having greater control and
 knowledge of other protocol participants outweighs these costs.
 
-The process of identifying critical functions for intermediaries is ongoing.
-There are three potential classes of outcome of these discussion:
+In these settings, finding ways for intermediaries to contribute is an ongoing
+process.  When looking at how intermediaries contributed to protocols operation
+prior to the introduction of technical controls there are three potential
+classes of outcome of these discussion:
 
-* Practices might be deemed valuable and methods that allow limited
-  participation by intermediaries will be added to protocols.
+* Practices might be deemed valuable.  Facilities might be added to protocols to
+  allow or encourage those practices.
 
-* The use case supported by the practice might be deemed valuable, but
-  alternative methods that address the use case without the use of an
-  intermediary will be sought.
+* The use case supported by the practice might be deemed valuable, however it
+  might than an alternative approach has more desirable properties.
 
 * Practices might be deemed harmful and no replacement mechanism will be
   sought.
@@ -510,7 +511,7 @@ security question.  The principles in {{principles}} are fundamentally an
 application of a security principle: namely the principle of least privilege
 {{?LEAST-PRIVILEGE=DOI.10.1145/361011.361067}}.
 
-Lack of proper controls on intermediaries protocols has been the source of
+Lack of proper controls on intermediaries in protocols has been the source of
 significant security problems.  One key example is where protocols allow an
 intermediary to consume, modify, or generate protocol units in ways that are
 contrary to the interests of other protocol participants.
