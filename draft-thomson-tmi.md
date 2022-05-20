@@ -530,5 +530,5 @@ This document is merely an attempt to codify existing practice.  Practice that
 is inspired, at least in part, by prior work, including {{?RFC3552}} and
 {{?RFC3724}} which both advocate for clearer articulation of trust boundaries.
 
-Jari Arkko, Eric Rescorla, and David Schinazi are acknowledged for their
-contributions of thought, review, and text.
+{{{Jari Arkko}}}, {{{Eric Rescorla}}}, and {{{David Schinazi}}} are acknowledged
+for their contributions of thought, review, and text.
