@@ -356,6 +356,7 @@ The addition of an unwanted protocol participant is an attack on the protocol.
 
 This is an extension of the conclusion of {{?PATH-SIGNALS=RFC8558}}, which:
 
+{:quote}
 > recommends that implicit signals should be avoided and that an implicit signal
 > should be replaced with an explicit signal only when the signal's originator
 > intends that it be used by the network elements on the path.
