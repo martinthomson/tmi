@@ -4,7 +4,9 @@ abbrev: "Too Much Intermediation"
 docname: draft-thomson-tmi-latest
 category: info
 ipr: trust200902
-v: 3
+
+stand_alone: yes
+pi: [toc, sortrefs, symrefs, docmapping]
 
 author:
  -
@@ -14,7 +16,7 @@ author:
 
 informative:
 
-  PATTRNS:
+  PATTERNS:
     title: "Design Patterns: Elements of Reusable Object-Oriented Software"
     date: 1994
     author:
