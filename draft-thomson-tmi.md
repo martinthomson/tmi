@@ -14,7 +14,7 @@ author:
 
 informative:
 
-  PATTRNS:
+  PATTERNS:
     title: "Design Patterns: Elements of Reusable Object-Oriented Software"
     date: 1994
     author:
