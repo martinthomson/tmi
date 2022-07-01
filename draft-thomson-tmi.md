@@ -3,8 +3,8 @@ title: "Principles for the Involvement of Intermediaries in Internet Protocols"
 abbrev: "Too Much Intermediation"
 docname: draft-thomson-tmi-latest
 category: info
-ipr: trust200902
 v: 3
+stream: IAB
 
 author:
  -
@@ -14,7 +14,7 @@ author:
 
 informative:
 
-  PATTRNS:
+  PATTERNS:
     title: "Design Patterns: Elements of Reusable Object-Oriented Software"
     date: 1994
     author:
