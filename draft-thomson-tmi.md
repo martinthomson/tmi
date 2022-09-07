@@ -281,10 +281,11 @@ which sometimes act as TLS intermediaries -- is fiercely debated in the context
 of TLS 1.3 {{?TLS=RFC8446}}, where the design renders certain practices
 obsolete.
 
-It could be that the circumstances in each of these debates is different enough
-that there is no singular outcome.  The complications resulting from large-scale
-deployments of great diversity might render a single clear outcome impossible
-for an established protocol.
+The functions provided by intermediaries in different protocols can be
+dramatically different. Even within the one protocol, the same protocol might be
+deployed to address many different needs.  For an existing protocol with wide
+deployment, there might not be a single, easy method for managing the
+integration of the functions that intermediaries provide.
 
 
 # Proposed Principles {#principles}
