@@ -23,6 +23,11 @@ informative:
       - name: Ralph Johnson
       - name: John Vlissides
 
+  X-UIDH:
+    title: "Verizon Wireless’ use of a Unique Identifier Header (UIDH)"
+    target: "https://www.verizon.com/about/news/vzw/2012/10/verizon-wireless-privacy-policy"
+    date: 2012-10-19
+
 
 --- abstract
 
@@ -81,7 +86,7 @@ or an intermediary.
 Intermediaries exist at all layers of the stack.  A router is an intermediary
 that acts at the network layer to forward packets.  A TURN relay {{?RFC8155}}
 provides similar forwarding capability for UDP in the presence of a network
-address translator (NAT) - a different type of intermediary that provides the
+address translator (NAT) -- a different type of intermediary that provides the
 ability to share a limited supply of addresses.  At higher layers of the stack,
 group messaging servers intermediate the exchange of messages within groups of
 people; a conference focus aids the sending of media group real-time
@@ -131,18 +136,17 @@ beyond what is available for participants as conferences grow in size.
 
 # Intermediation Is Useful
 
-That intermediaries provide access to valuable resources does not imply that
-all intermediaries have exclusive control over access to resources.  A router
-might provide access to other networks, but similar access might be obtained
-via a different route.  The same web content might be provided by multiple CDNs.
-Multiple DNS resolvers can provide answers to the same queries.  The ability to
-access the same capabilities from multiple entities contributes greatly to the
-robustness of a system.
+Not all intermediaries have exclusive control access to the resources they
+provide access to.  A router might facilitate access to other networks, but
+similar access might be obtained via a different route.  The same web content
+might be provided by multiple CDNs.  Multiple DNS resolvers can provide answers
+to the same queries.  The ability to access the same capabilities from multiple
+entities contributes greatly to the robustness of a system.
 
 Intermediaries often provide capabilities that benefit from economies of scale
-by providing a service that aggregates demand from multiple individuals.  For
-instance, individuals are unlikely to be in a position to negotiate connections
-to multiple networks, but an ISP can.  Similarly, an individual might find it
+by providing a service that serves multiple individuals.  For instance,
+individuals are unlikely to be in a position to negotiate connections to
+multiple networks, but an ISP can.  Similarly, an individual might find it
 difficult to acquire the capacity necessary to withstand a DDoS attack, but the
 scale at which a CDN operates means that this capacity is likely available to
 it.  Or the value of a social network is in part due to the existing
@@ -151,8 +155,9 @@ participation of other people.
 Aggregation also provides other potential benefits.  For instance, caching of
 shared information can allow for performance advantages.  From an efficiency
 perspective, the use of shared resources might allow load to be more evenly
-distributed over time.  For privacy, individual activity might be mixed with the
-activity of many others, thereby making it difficult to isolate that activity.
+distributed over time.  Or, for privacy, individual activity might be mixed with
+the activity of many others, thereby making it difficult to isolate that
+activity.
 
 The ability of an intermediary to operate at scale can therefore provide a
 number of different benefits to performance, scalability, privacy, and other
@@ -166,7 +171,7 @@ intermediary.  For an intermediary that operates at scale, this means it can be
 seen as an effective control point.
 
 In addition to facilitating communications, some intermediary deployments aim to
-effect a policy. This relies on the ability of a well-placed intermediary to
+effect a policy.  This relies on the ability of a well-placed intermediary to
 affect multiple protocol interactions and participants.
 
 The ability of an intermediary to affect a large number of network users can be
@@ -189,11 +194,11 @@ A dependency on an intermediary represents a risk to those that take the
 dependency.  The incentives and motives of intermediaries can be important to
 consider when choosing to use an intermediary.
 
-For instance, the information necessary for an intermediary to performs its
-function can often be used (or abused) for other purposes.  Even the simple
-function of forwarding necessarily involves information about who was
-communicating, when, and the size of messages.  This can reveal more than is
-obvious {{?CLINIC=DOI.10.1007/978-3-319-08506-7_8}}.
+For instance, the information an intermediary needs to perform its function
+might be used (or abused) for other purposes.  Even the simple function of
+forwarding necessarily involves information about who was communicating, when,
+and the size of messages.  This can reveal more than is trivially apparent
+{{?CLINIC=DOI.10.1007/978-3-319-08506-7_8}}.
 
 As uses of networks become more diverse, the extent that incentives for
 intermediaries and network users align reduce.  In particular, acceptance of
@@ -211,17 +216,16 @@ which reduces resilience and exposes endpoints to greater potential for abuse.
 # Forced and Unwanted Intermediation
 
 The ability to act as intermediary can offer more options than a service that is
-called upon to provide information.  Sometimes those advantages are enough to
-justify the use of intermediation over alternative designs.  However, the use of
-an intermediary also introduces costs.
+called upon to provide information or services as needed.  Sometimes those
+advantages are enough to justify the use of intermediation over alternative
+designs.  However, the use of an intermediary also introduces costs.
 
-The use of transparent or interception proxies in HTTP
-{{?HTTP=I-D.ietf-httpbis-semantics}} is an example of a practice that has
-fallen out of common usage due to increased use of HTTPS.  Use of transparent
-proxies was once widespread with a wide variety of reasons for their
-deployment.  However, transparent proxies were involved in many abuses, such as
-unwanted transcoding of content and insertion of identifiers to the detriment
-of individual privacy.
+The use of transparent or interception proxies in HTTP {{?HTTP=RFC9110}} is an
+example of a practice that has fallen out of common usage due to increased use
+of HTTPS.  Use of transparent proxies was once widespread with a wide variety of
+reasons for their deployment.  However, transparent proxies were involved in
+many abuses, such as unwanted transcoding of content and insertion of
+identifiers to the detriment of individual privacy {{X-UIDH}}.
 
 Introducing intermediaries is often done with the intent of avoiding disruption
 to protocols that operate a higher layer of the stack.  However, network
@@ -238,8 +242,8 @@ As an intermediary is another participant in a protocol, they can make
 interactions less robust.  Intermediaries can also be responsible for
 ossification, or the inability to deploy new protocol mechanisms; see {{Section
 2.3 of ?USE-IT=RFC9170}}.  For example, measurement of TCP showed that the
-protocol has poor prospects for extensibility due to widespread use - and poor
-implementation - of intermediaries {{?TCP-EXTEND=DOI.10.1145/2068816.2068834}}.
+protocol has poor prospects for extensibility due to widespread use -- and poor
+implementation -- of intermediaries {{?TCP-EXTEND=DOI.10.1145/2068816.2068834}}.
 
 Some forms of intermediation have been deployed without consulting the endpoints
 involved in the protocol.  As protocols evolve or a more diverse set of
@@ -254,17 +258,16 @@ failed.
 
 # Contention over Intermediation
 
-The IETF has a long history of dealing with different forms of intermediation
-poorly.
+The IETF has a long history of dealing with different forms of intermediation.
 
 A debate about the intent and purpose of IPv6 extension headers
 {{?IPv6=RFC8200}} occurred prior to the publication of RFC 8986
-{{?SRv6=RFC8986}} and it's PSP (Penultimate Segment Pop) mode.  Here, the use of
-extension headers by entities other than the communication endpoints -- that is,
-intermediaries -- was contested.  As the purpose of this feature is to
-communicate routing information between intermediaries, this could be seen as a
-form of tunneling between the communicating routers that uses the ability of
-IPv6 intermediaries (or routers) to add or remove extension headers.
+{{?SRv6=RFC8986}}, in particular, it's PSP (Penultimate Segment Pop) mode.
+Here, the use of extension headers by entities other than the communication
+endpoints -- that is, intermediaries -- was contested.  As the purpose of this
+feature is to communicate routing information between intermediaries, this could
+be seen as a form of tunneling between the communicating routers that uses the
+ability of IPv6 intermediaries (or routers) to add or remove extension headers.
 
 Like HTTP, SIP {{?RFC3261}} defines a role for a proxy, which is a form of
 intermediary with limited ability to interact with the session that it
@@ -291,7 +294,7 @@ are introduced without the involvement of protocol endpoints.  Limiting the
 extent to which protocol designs depend on intermediaries makes the resulting
 system more robust.
 
-These principles are set out in three stages:
+These principles are progressive, with three stages:
 
 1. Prefer designs without intermediaries ({{prefer-services}});
 2. Failing that, control which entities can intermediate the protocol
@@ -300,7 +303,7 @@ These principles are set out in three stages:
    ({{limit-capabilities}}).
 
 The use of technical mechanisms to ensure that these principles are enforced is
-necessary.  It is expected that protocols will need to use cryptography for
+encouraged.  It is expected that protocols will need to use cryptography for
 this.
 
 New protocol designs therefore need to identify what intermediation is possible
@@ -313,21 +316,19 @@ worthwhile.
 
 ## Prefer Services to Intermediaries {#prefer-services}
 
-Protocols should prefer designs that do not involve additional participants,
-such as intermediaries.
+Where protocol functions can provided by a service or a means other than
+intermediation, the design should prefer that alternative.
 
 Designing protocols to use services rather than intermediaries ensures that
-responsibilities of protocol participants are clearly defined.  Where functions
-can provided by means other than intermediation, the design should prefer that
-alternative.
+responsibilities of protocol participants are clearly defined.
 
 If there is a need for information, defining a means for querying a service for
-that information is preferable to adding an intermediary.  Similarly, direct
-invocation of service to perform an action is better than involving that
-service as a participant in the protocol.
+that information is preferable to allowing an intermediary to add information
+during an exchange.  Similarly, direct invocation of service to perform an
+action is better than involving that service as a participant in the protocol.
 
-Involving an entity as an intermediary can greatly increase the degree to which
-that entity becomes a dependency.  For example, it might be necessary to
+Involving an intermediary in a protocol means depending on that intermediary for
+every aspect of protocol functioning.  For example, it might be necessary to
 negotiate the use of new capabilities with all protocol participants, including
 the intermediary, even when the functions for which the intermediary was added
 are not affected.  It is also more difficult to limit the extent to which a
@@ -335,9 +336,9 @@ protocol participant can be involved than a service that is invoked for a
 specific task.
 
 Using discrete services is not always the most performant architecture as
-additional network interactions can add to overheads.  The cost of these
-overheads need to be weighed against the recurrent costs from involving
-intermediaries.
+additional network interactions can add latency or other overheads.  The cost of
+these overheads need to be weighed against the recurrent costs from the
+involvement of intermediaries.
 
 The contribution of an intermediary to performance and efficiency can involve
 trade-offs, such as those discussed in Section 2.3 of {{?E2E}}.  One
@@ -376,7 +377,8 @@ encryption.
 ## Limit Capabilities of Intermediaries {#limit-capabilities}
 
 Protocol participants should be able to limit the capabilities conferred to
-other protocol participants.
+other protocol participants.  Though this applies to all participants,
+intermediaries often have narrowly-defined roles.
 
 Where the potential for intermediation already exists, or intermediaries
 provide essential functions, protocol designs should limit the capabilities and
@@ -395,9 +397,9 @@ Protocol participants should only have access to the information they need to
 perform their designated function.
 
 Protocol designs based on a principle of providing the minimum information
-necessary have several benefits.  In addition to requiring smaller messages, or
-fewer exchanges, reducing information provides greater control over exposure of
-information.  This has privacy benefits.
+necessary have several benefits.  In addition to simplicity, requiring smaller
+messages, or fewer exchanges, reducing information provides greater control over
+exposure of information.  This has privacy benefits.
 
 Where an intermediary needs to carry information that it has no need to access,
 protocols should use encryption to ensure that the intermediary cannot access
@@ -419,14 +421,13 @@ the best means of ensuring signals generated by protocol participants are
 correctly attributed.  Authentication informs decisions protocol participants
 make about actions they take.
 
-In some cases, particularly protocols that are primarily two-party protocols,
-it might be sufficient to allow the signal to be attributed to any
-intermediary.  This is the case in QUIC {{?QUIC=I-D.ietf-quic-transport}} for
-ECN {{?ECN=RFC3168}} and ICMP {{?ICMP=RFC0792}}, both of which are assumed to
-be provided by elements on the network path.  Limited mechanisms exist to
-authenticate these as signals that originate from path elements, informing
-actions taken by endpoints.  Consequently, the actions taken in response to
-these signals is limited.
+In some cases, particularly protocols that are primarily two-party protocols, it
+might be sufficient to allow the signal to be attributed to any intermediary.
+This is the case in QUIC {{?RFC9000}} where ECN {{?ECN=RFC3168}} and ICMP
+{{?ICMP=RFC0792}} signals are assumed to be provided by elements on the network
+path.  Limited mechanisms exist to authenticate these as signals that originate
+from path elements, informing actions taken by endpoints.  Consequently, the
+actions that can be taken in response to these signals is limited.
 
 
 ### Costs of Technical Constraints
@@ -490,8 +491,8 @@ for the insertion of intermediaries into sessions without permission or
 knowledge of other protocol participants.  Adding controls like encryption
 and authentication disrupts these practices.
 
-Overall, the advantages derived from having greater control and
-knowledge of other protocol participants outweighs these costs.
+Overall, the advantages derived from having greater control over or knowledge of
+other protocol participants outweighs these costs.
 
 In these settings, finding ways for intermediaries to contribute is an ongoing
 process.  When looking at how intermediaries contributed to protocols operation
@@ -501,11 +502,12 @@ classes of outcome of these discussion:
 * Practices might be deemed valuable.  Facilities might be added to protocols to
   allow or encourage those practices.
 
-* The use case supported by the practice might be deemed valuable, however it
-  might than an alternative approach has more desirable properties.
+* The use case supported by the practice might be deemed valuable, but the
+  existence of a superior alternative approach could make further effort
+  unnecessary.
 
-* Practices might be deemed harmful and no replacement mechanism will be
-  sought.
+* Practices might be deemed harmful, such that no replacement mechanism is
+  needed.
 
 Many factors could influence the outcome of this analysis.  For instance,
 deployment of alternative methods or limited roles for intermediaries could be
@@ -515,15 +517,15 @@ to retrofit controls on existing protocol deployments.
 
 # Security Considerations
 
-Controlling the level of participation and access intermediaries have is a
-security question.  The principles in {{principles}} are fundamentally an
+Understanding how intermediaries participate is highly relevant to the security
+of a protocol.  The principles in {{principles}} are fundamentally an
 application of a security principle: namely the principle of least privilege
 {{?LEAST-PRIVILEGE=DOI.10.1145/361011.361067}}.
 
 Lack of proper controls on intermediaries in protocols has been the source of
-significant security problems.  One key example is where protocols allow an
-intermediary to consume, modify, or generate protocol units in ways that are
-contrary to the interests of other protocol participants.
+significant security problems.  A protocol is not secure if it fails to prevent
+an intermediary from consuming, modifying, or generating protocol units in ways
+that are contrary to the interests of other protocol participants.
 
 
 # IANA Considerations
