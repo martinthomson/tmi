@@ -241,6 +241,17 @@ ossification, or the inability to deploy new protocol mechanisms; see {{Section
 protocol has poor prospects for extensibility due to widespread use - and poor
 implementation - of intermediaries {{?TCP-EXTEND=DOI.10.1145/2068816.2068834}}.
 
+Historically, many forms of intermediation have been deployed without
+consulting the endpoints involved in the protocol.  In some instances, the
+implementor of the intermediary used assumptions based on their understanding
+of the protocol.  This can lead to issues when the endpoints break these
+assumptions.  For example, an implementor could assume that in TLS 1.3
+{{?RFC8446}}, if it observed the cleartext Server Name Indication (SNI)
+extension and the handshake succeeded, then the server must possess the
+private key for the corresponding TLS certificate.  That assumption can be
+broken by the TLS endpoints if they so choose, leading to misclassification
+of traffic by the intermediary.
+
 
 # Contention over Intermediation
 
