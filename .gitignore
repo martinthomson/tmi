@@ -14,3 +14,4 @@ report.xml
 venv/
 lib
 draft-thomson-tmi.xml
+!requirements.txt
