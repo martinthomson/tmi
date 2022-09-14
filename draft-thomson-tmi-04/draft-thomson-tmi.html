@@ -1,0 +1,1887 @@
+<!DOCTYPE html>
+<html lang="en" class="Internet-Draft">
+<head>
+<meta charset="utf-8">
+<meta content="Common,Latin" name="scripts">
+<meta content="initial-scale=1.0" name="viewport">
+<title>Principles for the Involvement of Intermediaries in Internet Protocols</title>
+<meta content="Martin Thomson" name="author">
+<meta content="
+       This document proposes a set of principles for designing protocols with rules
+for intermediaries.  The goal of these principles is to limit the ways in which
+intermediaries can produce undesirable effects and to protect the useful
+functions that intermediaries legitimately provide. 
+    " name="description">
+<meta content="xml2rfc 3.14.2" name="generator">
+<meta content="draft-thomson-tmi-latest" name="ietf.draft">
+<!-- Generator version information:
+  xml2rfc 3.14.2
+    Python 3.10.5
+    appdirs 1.4.4
+    ConfigArgParse 1.5.3
+    google-i18n-address 2.5.2
+    html5lib 1.1
+    intervaltree 3.1.0
+    Jinja2 3.1.2
+    kitchen 1.2.6
+    lxml 4.9.1
+    MarkupSafe 2.1.1
+    pycountry 22.3.5
+    PyYAML 6.0
+    requests 2.27.1
+    setuptools 59.4.0
+    six 1.16.0
+-->
+<link href="draft-thomson-tmi.xml" rel="alternate" type="application/rfc+xml">
+<link href="#copyright" rel="license">
+<style type="text/css">@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-vietnamese.woff2') format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-cyrillic.woff2') format('woff2');
+  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-vietnamese.woff2') format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-cyrillic.woff2') format('woff2');
+  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-vietnamese.woff2') format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: local('Lora SemiBold'), local('Lora-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-semibold-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Cabin Condensed';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: local('Cabin Condensed SemiBold'), local('CabinCondensed-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/cabincondensed-semibold-vietnamese.woff2') format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+  font-family: 'Cabin Condensed';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: local('Cabin Condensed SemiBold'), local('CabinCondensed-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/cabincondensed-semibold-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Cabin Condensed';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: local('Cabin Condensed SemiBold'), local('CabinCondensed-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/cabincondensed-semibold-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Oxygen Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Oxygen Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+  color-scheme: light dark;
+  --background-color: #fff;
+  --text-color: #222;
+  --title-color: #191919;
+  --link-color: #2a6496;
+  --highlight-color: #f9f9f9;
+  --line-color: #eee;
+  --pilcrow-weak: #ddd;
+  --pilcrow-strong: #bbb;
+  --small-font-size: 14.5px;
+  --font-mono: 'Oxygen Mono', monospace;
+  scrollbar-color: #bbb #eee;
+}
+body {
+  max-width: 600px;
+  margin: 75px auto;
+  padding: 0 5px;
+  color: var(--text-color);
+  background-color: var(--background-color);
+  font: 16px/22px "Lora", serif;
+  scroll-behavior: smooth;
+}
+
+.ears {
+  display: none;
+}
+
+/* headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Cabin Condensed", sans-serif;
+  font-weight: 600;
+  margin: 0.8em 0 0.3em;
+  font-size-adjust: 0.5;
+  color: var(--title-color);
+}
+h1#title {
+  font-size: 32px;
+  line-height: 40px;
+  clear: both;
+}
+h1#title, h1#rfcnum {
+  margin: 1.5em 0 0.2em;
+}
+h1#rfcnum + h1#title {
+  margin: 0.2em 0;
+}
+
+h1, h2, h3 {
+  font-size: 22px;
+  line-height: 27px;
+}
+h4, h5, h6 {
+  font-size: 20px;
+  line-height: 24px;
+}
+
+/* general structure */
+.author {
+  padding-bottom: 0.3em;
+}
+#abstract+p {
+  font-size: 18px;
+  line-height: 24px;
+}
+#abstract+p code, #abstract+p samp, #abstract+p tt {
+  font-size: 16px;
+  line-height: 0;
+}
+
+p {
+  padding: 0;
+  margin: 0.5em 0;
+  text-align: left;
+}
+div {
+  margin: 0;
+}
+.alignRight.art-text {
+  background-color: var(--highlight-color);
+  border: 1px solid var(--line-color);
+  border-radius: 3px;
+  padding: 0.5em 1em 0;
+  margin-bottom: 0.5em;
+}
+.alignRight.art-text pre {
+  padding: 0;
+  width: auto;
+}
+.alignRight {
+  margin: 1em 0;
+}
+.alignRight > *:first-child {
+  border: none;
+  margin: 0;
+  float: right;
+  clear: both;
+}
+.alignRight > *:nth-child(2) {
+  clear: both;
+  display: block;
+  border: none;
+}
+svg {
+  display: block;
+}
+/* font-family isn't space-separated, but =~ will have to do */
+svg[font-family~="monospace" i], svg [font-family~="monospace" i] {
+  font-family: var(--font-mono);
+}
+.alignCenter.art-text {
+  background-color: var(--highlight-color);
+  border: 1px solid var(--line-color);
+  border-radius: 3px;
+  padding: 0.5em 1em 0;
+  margin-bottom: 0.5em;
+}
+.alignCenter.art-text pre {
+  padding: 0;
+  width: auto;
+}
+.alignCenter {
+  margin: 1em 0;
+}
+.alignCenter > *:first-child {
+  border: none;
+  /* this isn't optimal, but it's an existence proof.  PrinceXML doesn't
+     support flexbox yet.
+  */
+  display: table;
+  margin: 0 auto;
+}
+
+/* lists */
+ol, ul {
+  padding: 0;
+  margin: 0 0 0.5em 2em;
+}
+:is(ol, ul) :is(ol, ul) {
+  margin-left: 1em;
+}
+li {
+  margin: 0 0 0.25em 0;
+}
+.ulCompact li {
+  margin: 0;
+}
+ul.empty, .ulEmpty {
+  list-style-type: none;
+}
+ul.empty li, .ulEmpty li {
+  margin-top: 0.5em;
+}
+:is(ul, ol).compact, .ulCompact, .olCompact {
+  line-height: 100%;
+  margin: 0 0 0 2em;
+}
+
+/* definition lists */
+dl {
+  clear: left;
+  --indent: 3ch;
+  /* --indent: attr(indent ch); not supported in any browser, but we can dream */
+}
+dl > dt {
+  float: left;
+  margin-right: 1em;
+  min-width: 20ch;
+}
+dl.dlNewline > dt {
+  float: none;
+}
+dl > dd {
+  margin-bottom: .8em;
+  margin-left: var(--indent) !important; /* stupid element overrides */
+  min-height: 2ex;
+}
+:is(dl.compact, .dlCompact) > dd {
+  margin-bottom: 0;
+}
+:is(dl.compact, .dlCompact) > dd > :is(:first-child, .break:first-child + *) {
+  margin-top: 0;
+}
+:is(dl.compact, .dlCompact) > dd > :is(:last-child) {
+  margin-bottom: 0;
+}
+dl > dd > dl {
+  margin-top: 0.5em;
+  margin-bottom: 0;
+}
+dl .break {
+  display: none;
+}
+
+/* links */
+a, a[href].selfRef:hover {
+  text-decoration: none;
+}
+a[href].selfRef {
+  color: var(--text-color);
+}
+a[href] {
+  color: var(--link-color);
+}
+a[href]:hover {
+  text-decoration: underline;
+}
+a[href].selfRef:hover {
+  background-color: var(--highlight-color);
+}
+a.xref {
+  white-space: nowrap;
+}
+
+/* Figures */
+tt, code, pre {
+  background-color: var(--highlight-color);
+  font: 14px/22px var(--font-mono);
+}
+tt, code {
+  /* changing the font for inline elements leads to different ascender
+     and descender heights; as we want to retain baseline alignment,
+     remove leading to avoid altering the final height of lines */
+  line-height: 0;
+}
+:is(h1, h2, h3, h4, h5, h6) :is(tt, code) {
+  font-size: 84%;
+}
+pre {
+  border: 1px solid var(--line-color);
+  font-size: 13.5px;
+  line-height: 16px;
+  letter-spacing: -0.2px;
+  margin: 5px;
+  padding: 5px;
+}
+img {
+  max-width: 100%;
+}
+figure {
+  margin: 0.5em 0;
+  padding: 0;
+}
+figure blockquote {
+  margin: 0.8em 0.4em 0.4em;
+}
+figcaption, caption {
+  font-style: italic;
+  margin: 0.5em 1.5em;
+  text-align: left;
+}
+@media screen {
+  /* Auto-collapse boilerplate. */
+  :is(#status-of-memo, #copyright) p {
+    margin: -2px 0;
+    max-height: 0;
+    transition: max-height 2s ease, margin 0.5s ease 0.5s;
+    overflow: hidden;
+  }
+  :is(#status-of-memo, #copyright):hover p,
+  :is(#status-of-memo, #copyright) h2:target ~ p {
+    margin: 0.5em 0;
+    max-height: 500px;
+    overflow: auto;
+  }
+  pre, svg {
+    display: inline-block;
+    overflow-x: auto;
+  }
+  pre {
+    max-width: 100%;
+    width: calc(100% - 22px - 1em);
+  }
+  svg {
+    max-width: calc(100% - 22px - 1em);
+  }
+  figure pre {
+    display: block;
+    width: calc(100% - 25px);
+  }
+  :is(pre, svg) + .pilcrow {
+    display: inline-block;
+    vertical-align: text-bottom;
+    padding-bottom: 8px;
+  }
+}
+
+/* aside, blockquote */
+aside, blockquote {
+  margin-left: 0;
+  padding: 0 2em;
+  font-style: italic;
+}
+blockquote {
+  margin: 1em 0;
+}
+cite {
+  display: block;
+  text-align: right;
+  font-style: italic;
+}
+
+/* tables */
+table {
+  max-width: 100%;
+  margin: 0 0 1em;
+  border-collapse: collapse;
+}
+table.right {
+  margin-left: auto;
+}
+table.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+table.left {
+  margin-right: auto;
+}
+thead, tbody {
+  border: 1px solid var(--line-color);
+}
+th, td {
+  text-align: left;
+  vertical-align: top;
+  padding: 5px 10px;
+}
+th {
+  background-color: var(--line-color);
+}
+:is(tr:nth-child(2n), thead+tbody > tr:nth-child(2n+1)) > td {
+  background-color: var(--background-color);
+}
+:is(tr:nth-child(2n+1), thead+tbody > tr:nth-child(2n)) > td {
+  background-color: var(--highlight-color);
+}
+table caption {
+  margin: 0;
+  padding: 3px 0 3px 1em;
+}
+table p {
+  margin: 0;
+}
+
+/* pilcrow */
+a.pilcrow {
+  margin-left: 3px;
+  opacity: 0.2;
+  user-select: none;
+}
+a.pilcrow[href] { color: var(--pilcrow-weak); }
+a.pilcrow[href]:hover { text-decoration: none; }
+@media not print {
+  :hover > a.pilcrow {
+    opacity: 1;
+  }
+  a.pilcrow[href]:hover {
+    color: var(--pilcrow-strong);
+    background-color: transparent;
+  }
+}
+@media print {
+  a.pilcrow {
+    display: none;
+  }
+}
+
+/* misc */
+hr {
+  border: 0;
+  border-top: 1px solid var(--line-color);
+}
+.bcp14 {
+  font-variant: small-caps;
+  font-weight: 600;
+  font-size: 14.5px;
+}
+.role {
+  font-variant: all-small-caps;
+}
+
+/* info block */
+#identifiers {
+  margin: 0;
+  font-size: var(--small-font-size);
+  line-height: 18px;
+  --identifier-width: 15ch;
+}
+#identifiers dt {
+  width: var(--identifier-width);
+  min-width: var(--identifier-width);
+  clear: left;
+  float: left;
+  text-align: right;
+}
+#identifiers dd {
+  margin: 0;
+  margin-left: calc(1em + var(--identifier-width)) !important;
+  min-width: 5em;
+}
+#identifiers .authors .author {
+  display: inline-block;
+  margin-right: 1.5em;
+}
+#identifiers .authors .org {
+  font-style: italic;
+}
+
+/* The prepared/rendered info at the very bottom of the page */
+.docInfo {
+  color: #999;
+  font-size: 0.9em;
+  font-style: italic;
+  margin-top: 2em;
+}
+.docInfo .prepared {
+  float: left;
+}
+.docInfo .prepared {
+  float: right;
+}
+
+/* table of contents */
+#toc {
+  padding: 0.75em 0 2em 0;
+  margin-bottom: 1em;
+}
+#toc nav ul {
+  margin: 0 0.5em 0 0;
+  padding: 0;
+  list-style: none;
+}
+#toc nav li {
+  line-height: 1.3em;
+  margin: 0.75em 0;
+  padding-left: 1.2em;
+  text-indent: -1.2em;
+}
+#toc a.xref {
+  white-space: normal;
+}
+/* references */
+.references dt {
+  text-align: right;
+  font-weight: bold;
+  min-width: 7em;
+}
+.references dt:target::before {
+  content: "⇒";
+  width: 15px;
+  margin: 0 10px 0 -25px;
+}
+.references dd {
+  margin-left: 8em !important;
+  overflow: auto;
+}
+
+.refInstance {
+  margin-bottom: 1.25em;
+}
+
+.references .ascii {
+  margin-bottom: 0.25em;
+}
+
+/* index */
+#rfc\.index\.index + ul {
+  margin-left: 0;
+}
+
+/* authors */
+address.vcard {
+  font-style: normal;
+  margin: 1em 0;
+}
+address.vcard .nameRole {
+  font-weight: 700;
+  margin-left: 0;
+}
+address.vcard .label {
+  margin: 0.5em 0;
+}
+address.vcard .type {
+  display: none;
+}
+.alternative-contact {
+  margin: 1.5em 0 1em;
+}
+hr.addr {
+  border-top: 1px dashed;
+  margin: 0;
+  color: #ddd;
+  max-width: calc(100% - 16px);
+}
+@media (min-width: 500px) {
+  #authors-addresses > section {
+    column-count: 2;
+    column-gap: 20px;
+  }
+  #authors-addresses > section > h2 {
+    column-span: all;
+  }
+  /* hack for break-inside: avoid-column */
+  #authors-addresses address {
+    display: inline-block;
+    break-inside: avoid-column;
+  }
+}
+
+.rfcEditorRemove p:first-of-type {
+  font-style: italic;
+}
+.cref {
+  background-color: rgba(249, 232, 105, 0.3);
+  padding: 2px 4px;
+}
+.crefSource {
+  font-style: italic;
+}
+/* alternative layout for smaller screens */
+@media screen and (max-width: 929px) {
+  #toc {
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    right: 0;
+    padding: 0;
+    margin: 0;
+    border-bottom: 1px solid #ccc;
+    opacity: 0.6;
+  }
+  #toc.active {
+      opacity: 1;
+  }
+  #toc h2 {
+    margin: 0;
+    padding: 2px 0 2px 6px;
+    padding-right: 1em;
+    font-size: 18px;
+    line-height: 24px;
+    min-width: 190px;
+    text-align: right;
+    background-color: #444;
+    color: white;
+    cursor: pointer;
+  }
+  #toc h2::before { /* css hamburger */
+    float: right;
+    position: relative;
+    width: 1em;
+    height: 1px;
+    left: -164px;
+    margin: 8px 0 0 0;
+    background: white none repeat scroll 0 0;
+    box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
+    content: "";
+  }
+  #toc nav {
+    display: none;
+    background-color: var(--background-color);
+    padding: 0.5em 1em 1em;
+    overflow: auto;
+    overscroll-behavior: contain;
+    height: calc(100vh - 48px);
+    border-left: 1px solid #ddd;
+  }
+  #toc.active nav {
+    display: block;
+  }
+  /* Make the collapsed ToC header render white on gray also when it's a link */
+  #toc h2 a,
+  #toc h2 a:link,
+  #toc h2 a:focus,
+  #toc h2 a:hover,
+  #toc a.toplink,
+  #toc a.toplink:hover {
+    color: white;
+    background-color: #444;
+    text-decoration: none;
+  }
+  #toc a.toplink {
+    margin-top: 2px;
+  }
+}
+
+/* alternative layout for wide screens */
+@media screen and (min-width: 930px) {
+  body {
+    padding-right: 360px;
+    padding-right: calc(min(180px + 20%, 500px));
+  }
+  #toc {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    right: calc(50vw - 480px);
+    width: 312px;
+    margin: 0;
+    padding: 0;
+    z-index: 1;
+  }
+  #toc h2 {
+    margin: 0;
+    padding: 0.25em 1em 1em 0;
+  }
+  #toc nav {
+    display: block;
+    height: calc(90vh - 84px);
+    bottom: 0;
+    padding: 0.5em 0 2em;
+    overflow: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+  }
+  #toc nav > ul  {
+    margin-bottom: 2em;
+  }
+  #toc ul {
+    margin: 0 0 0 4px;
+    font-size: var(--small-font-size);
+  }
+  #toc ul :is(p, li) {
+    margin: 2px 0;
+    line-height: 22px;
+  }
+  img { /* future proofing */
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* pagination */
+@media print {
+  body {
+    width: 100%;
+  }
+  p {
+    orphans: 3;
+    widows: 3;
+  }
+  #n-copyright-notice {
+    border-bottom: none;
+  }
+  #toc, #n-introduction {
+    page-break-before: always;
+  }
+  #toc {
+    border-top: none;
+    padding-top: 0;
+  }
+  figure, pre {
+    page-break-inside: avoid;
+  }
+  figure {
+    overflow: scroll;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+  }
+  h2+*, h3+*, h4+*, h5+*, h6+* {
+    page-break-before: avoid;
+  }
+  pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 10pt;
+  }
+  table {
+    border: 1px solid #ddd;
+  }
+  td {
+    border-top: 1px solid #ddd;
+  }
+}
+
+@page :first {
+  padding-top: 0;
+  @top-left {
+    content: normal;
+    border: none;
+  }
+  @top-center {
+    content: normal;
+    border: none;
+  }
+  @top-right {
+    content: normal;
+    border: none;
+  }
+}
+
+@page {
+  size: A4;
+  margin-bottom: 45mm;
+  padding-top: 20px;
+}
+
+/* Changes introduced to fix issues found during implementation */
+
+/* Separate body from document info even without intervening H1 */
+section {
+  clear: both;
+}
+
+/* Top align author divs, to avoid names without organization dropping level with org names */
+.author {
+  vertical-align: top;
+}
+
+/* Style section numbers with more space between number and title */
+.section-number {
+  padding-right: 0.5em;
+}
+
+/* Add styling for a link in the ToC that points to the top of the document */
+a.toplink {
+  float: right;
+  margin: 8px 0.5em 0;
+}
+
+/* Provide styling for table cell text alignment */
+table .text-left {
+  text-align: left;
+}
+table .text-center {
+  text-align: center;
+}
+table .text-right {
+  text-align: right;
+}
+
+/* Make the alternative author contact information look less like just another
+   author, and group it closer with the primary author contact information */
+.alternative-contact {
+  margin: 0.5em 0 0.25em 0;
+}
+address .non-ascii {
+  margin: 0 0 0 2em;
+}
+
+/* With it being possible to set tables with alignment
+  left, center, and right, { width: 100%; } does not make sense */
+table {
+  width: auto;
+}
+
+/* Avoid reference text that sits in a block with very wide left margin,
+   because of a long floating dt label.*/
+.references dd {
+  overflow: visible;
+}
+
+/* Control caption placement */
+caption {
+  caption-side: bottom;
+}
+
+/* Limit the width of the author address vcard, so names in right-to-left
+   script don't end up on the other side of the page. */
+
+address.vcard {
+  max-width: 20em;
+  margin-right: auto;
+}
+
+/* For address alignment dependent on LTR or RTL scripts */
+address div.left {
+  text-align: left;
+}
+address div.right {
+  text-align: right;
+}
+
+/* Give the table caption label the same styling as the figcaption */
+
+@media print {
+  .toplink {
+    display: none;
+  }
+
+  /* avoid overwriting the top border line with the ToC header */
+  #toc {
+    padding-top: 1px;
+  }
+
+  /* Avoid page breaks inside dl and author address entries */
+  dd {
+    page-break-before: avoid;
+  }
+  .vcard {
+    page-break-inside: avoid;
+  }
+
+}
+
+/* Dark mode. */
+@media (prefers-color-scheme: dark) {
+:root {
+  --background-color: #121212;
+  --text-color: #f0f0f0;
+  --title-color: #fff;
+  --link-color: #4da4f0;
+  --highlight-color: #282828;
+  --line-color: #444;
+  --pilcrow-weak: #444;
+  --pilcrow-strong: #666;
+  scrollbar-color: #777 #333;
+}
+}
+
+/* SVG Trick: a prefix match works because only black and white are allowed */
+svg :is([stroke="black"], [stroke^="#000"]) {
+  stroke: var(--text-color);
+}
+svg :is([stroke="white"], [stroke^="#fff"]) {
+  stroke: var(--background-color);
+}
+svg :is([fill="black"], [fill^="#000"], :not([fill])) {
+  fill: var(--text-color);
+}
+svg :is([stroke="fill"], [fill^="#fff"]) {
+  fill: var(--background-color);
+}
+</style>
+
+</head>
+<body>
+<table class="ears">
+<thead><tr>
+<td class="left">Internet-Draft</td>
+<td class="center">Too Much Intermediation</td>
+<td class="right">September 2022</td>
+</tr></thead>
+<tfoot><tr>
+<td class="left">Thomson</td>
+<td class="center">Expires 12 March 2023</td>
+<td class="right">[Page]</td>
+</tr></tfoot>
+</table>
+<div id="external-metadata" class="document-information"></div>
+<div id="internal-metadata" class="document-information">
+<dl id="identifiers">
+<dt class="label-workgroup">Workgroup:</dt>
+<dd class="workgroup">Network Working Group</dd>
+<dt class="label-internet-draft">Internet-Draft:</dt>
+<dd class="internet-draft">draft-thomson-tmi-latest</dd>
+<dt class="label-published">Published:</dt>
+<dd class="published">
+<time datetime="2022-09-08" class="published">8 September 2022</time>
+    </dd>
+<dt class="label-intended-status">Intended Status:</dt>
+<dd class="intended-status">Informational</dd>
+<dt class="label-expires">Expires:</dt>
+<dd class="expires"><time datetime="2023-03-12">12 March 2023</time></dd>
+<dt class="label-authors">Author:</dt>
+<dd class="authors">
+<div class="author">
+      <div class="author-name">M. Thomson</div>
+<div class="org">Mozilla</div>
+</div>
+</dd>
+</dl>
+</div>
+<h1 id="title">Principles for the Involvement of Intermediaries in Internet Protocols</h1>
+<section id="section-abstract">
+      <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
+<p id="section-abstract-1">This document proposes a set of principles for designing protocols with rules
+for intermediaries.  The goal of these principles is to limit the ways in which
+intermediaries can produce undesirable effects and to protect the useful
+functions that intermediaries legitimately provide.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+</section>
+<section class="note rfcEditorRemove" id="section-note.1">
+      <h2 id="name-discussion-venues">
+<a href="#name-discussion-venues" class="section-name selfRef">Discussion Venues</a>
+      </h2>
+<p id="section-note.1-1">This note is to be removed before publishing as an RFC.<a href="#section-note.1-1" class="pilcrow">¶</a></p>
+<p id="section-note.1-2">Discussion of this document takes place on the
+  IAB Model-T list (modelt@iab.org),
+  which is archived at <span><a href="https://mailarchive.ietf.org/arch/browse/model-t/">https://mailarchive.ietf.org/arch/browse/model-t/</a></span>.<a href="#section-note.1-2" class="pilcrow">¶</a></p>
+<p id="section-note.1-3">Source for this draft and an issue tracker can be found at
+  <span><a href="https://github.com/martinthomson/tmi">https://github.com/martinthomson/tmi</a></span>.<a href="#section-note.1-3" class="pilcrow">¶</a></p>
+</section>
+<div id="status-of-memo">
+<section id="section-boilerplate.1">
+        <h2 id="name-status-of-this-memo">
+<a href="#name-status-of-this-memo" class="section-name selfRef">Status of This Memo</a>
+        </h2>
+<p id="section-boilerplate.1-1">
+        This Internet-Draft is submitted in full conformance with the
+        provisions of BCP 78 and BCP 79.<a href="#section-boilerplate.1-1" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-2">
+        Internet-Drafts are working documents of the Internet Engineering Task
+        Force (IETF). Note that other groups may also distribute working
+        documents as Internet-Drafts. The list of current Internet-Drafts is
+        at <span><a href="https://datatracker.ietf.org/drafts/current/">https://datatracker.ietf.org/drafts/current/</a></span>.<a href="#section-boilerplate.1-2" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-3">
+        Internet-Drafts are draft documents valid for a maximum of six months
+        and may be updated, replaced, or obsoleted by other documents at any
+        time. It is inappropriate to use Internet-Drafts as reference
+        material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-4">
+        This Internet-Draft will expire on 12 March 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="copyright">
+<section id="section-boilerplate.2">
+        <h2 id="name-copyright-notice">
+<a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
+        </h2>
+<p id="section-boilerplate.2-1">
+            Copyright (c) 2022 IETF Trust and the persons identified as the
+            document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.2-2">
+            This document is subject to BCP 78 and the IETF Trust's Legal
+            Provisions Relating to IETF Documents
+            (<span><a href="https://trustee.ietf.org/license-info">https://trustee.ietf.org/license-info</a></span>) in effect on the date of
+            publication of this document. Please review these documents
+            carefully, as they describe your rights and restrictions with
+            respect to this document.<a href="#section-boilerplate.2-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="toc">
+<section id="section-toc.1">
+        <a href="#" onclick="scroll(0,0)" class="toplink">▲</a><h2 id="name-table-of-contents">
+<a href="#name-table-of-contents" class="section-name selfRef">Table of Contents</a>
+        </h2>
+<nav class="toc"><ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1">
+            <p id="section-toc.1-1.1.1" class="keepWithNext"><a href="#section-1" class="xref">1</a>.  <a href="#name-introduction" class="xref">Introduction</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2">
+            <p id="section-toc.1-1.2.1" class="keepWithNext"><a href="#section-2" class="xref">2</a>.  <a href="#name-what-is-meant-by-intermedia" class="xref">What is Meant by Intermediary</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3">
+            <p id="section-toc.1-1.3.1" class="keepWithNext"><a href="#section-3" class="xref">3</a>.  <a href="#name-intermediation-is-essential" class="xref">Intermediation Is Essential</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
+            <p id="section-toc.1-1.4.1"><a href="#section-4" class="xref">4</a>.  <a href="#name-intermediation-is-useful" class="xref">Intermediation Is Useful</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
+            <p id="section-toc.1-1.5.1"><a href="#section-5" class="xref">5</a>.  <a href="#name-intermediation-enables-scal" class="xref">Intermediation Enables Scaling Of Control</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
+            <p id="section-toc.1-1.6.1"><a href="#section-6" class="xref">6</a>.  <a href="#name-incentive-misalignment-at-s" class="xref">Incentive Misalignment at Scale</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
+            <p id="section-toc.1-1.7.1"><a href="#section-7" class="xref">7</a>.  <a href="#name-forced-and-unwanted-interme" class="xref">Forced and Unwanted Intermediation</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
+            <p id="section-toc.1-1.8.1"><a href="#section-8" class="xref">8</a>.  <a href="#name-contention-over-intermediat" class="xref">Contention over Intermediation</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
+            <p id="section-toc.1-1.9.1"><a href="#section-9" class="xref">9</a>.  <a href="#name-proposed-principles" class="xref">Proposed Principles</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.1">
+                <p id="section-toc.1-1.9.2.1.1"><a href="#section-9.1" class="xref">9.1</a>.  <a href="#name-prefer-services-to-intermed" class="xref">Prefer Services to Intermediaries</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.2">
+                <p id="section-toc.1-1.9.2.2.1"><a href="#section-9.2" class="xref">9.2</a>.  <a href="#name-deliberately-select-protoco" class="xref">Deliberately Select Protocol Participants</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.3">
+                <p id="section-toc.1-1.9.2.3.1"><a href="#section-9.3" class="xref">9.3</a>.  <a href="#name-limit-capabilities-of-inter" class="xref">Limit Capabilities of Intermediaries</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.3.2.1">
+                    <p id="section-toc.1-1.9.2.3.2.1.1"><a href="#section-9.3.1" class="xref">9.3.1</a>.  <a href="#name-limit-information-exposure" class="xref">Limit Information Exposure</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.3.2.2">
+                    <p id="section-toc.1-1.9.2.3.2.2.1"><a href="#section-9.3.2" class="xref">9.3.2</a>.  <a href="#name-limit-permitted-interaction" class="xref">Limit Permitted Interactions</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.3.2.3">
+                    <p id="section-toc.1-1.9.2.3.2.3.1"><a href="#section-9.3.3" class="xref">9.3.3</a>.  <a href="#name-costs-of-technical-constrai" class="xref">Costs of Technical Constraints</a></p>
+</li>
+                </ul>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
+            <p id="section-toc.1-1.10.1"><a href="#section-10" class="xref">10</a>. <a href="#name-applying-non-technical-cons" class="xref">Applying Non-Technical Constraints</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
+            <p id="section-toc.1-1.11.1"><a href="#section-11" class="xref">11</a>. <a href="#name-the-effect-on-existing-prac" class="xref">The Effect on Existing Practices</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12">
+            <p id="section-toc.1-1.12.1"><a href="#section-12" class="xref">12</a>. <a href="#name-security-considerations" class="xref">Security Considerations</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13">
+            <p id="section-toc.1-1.13.1"><a href="#section-13" class="xref">13</a>. <a href="#name-iana-considerations" class="xref">IANA Considerations</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.14">
+            <p id="section-toc.1-1.14.1"><a href="#section-14" class="xref">14</a>. <a href="#name-informative-references" class="xref">Informative References</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15">
+            <p id="section-toc.1-1.15.1"><a href="#appendix-A" class="xref">Appendix A</a>.  <a href="#name-acknowledgments" class="xref">Acknowledgments</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.16">
+            <p id="section-toc.1-1.16.1"><a href="#appendix-B" class="xref"></a><a href="#name-authors-address" class="xref">Author's Address</a></p>
+</li>
+        </ul>
+</nav>
+</section>
+</div>
+<div id="introduction">
+<section id="section-1">
+      <h2 id="name-introduction">
+<a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
+      </h2>
+<p id="section-1-1">The Internet owes much of its success to its application of the end-to-end
+principle <span>[<a href="#E2E" class="xref">E2E</a>]</span>.  The realization that efficiency
+is best served by moving higher-level functions to endpoints is a key insight
+in system design, but also a key element of the success of the Internet.<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-2">This does not mean that the Internet avoids a relying on functions provided by
+entities in the network.  While the principle establishes that some functions
+are best provided by endsystems, this does not exclude all intermediary
+functions.  Some level of function in the network is necessary, or else there
+would be no network.  The ways in which intermediaries can assist protocol
+endpoints are numerous and constantly evolving.<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-3">This document explores some of the ways in which intermediaries make both
+essential and valuable contributions to the function of the system.  Problems
+arise when the interests of intermediaries are poorly aligned with those of
+endpoints.  This can result in systemic costs and tension.  Addressing those
+issues can be difficult.<a href="#section-1-3" class="pilcrow">¶</a></p>
+<p id="section-1-4">This document proposes the following design principles for the protocols that
+might involve the participation of intermediaries:<a href="#section-1-4" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-1-5.1">Avoid intermediation (<a href="#prefer-services" class="xref">Section 9.1</a>)<a href="#section-1-5.1" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-1-5.2">Limit the entities that can intermediate (<a href="#limit-participants" class="xref">Section 9.2</a>)<a href="#section-1-5.2" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-1-5.3">Limit what intermediaries can do (<a href="#limit-capabilities" class="xref">Section 9.3</a>)<a href="#section-1-5.3" class="pilcrow">¶</a>
+</li>
+      </ul>
+<p id="section-1-6">These principles aim to provide clarity about the roles and responsibilities of
+protocol participants.  These principles produce more robust protocols with
+better privacy and security properties.  These also limit the secondary costs
+associated with intermediation.<a href="#section-1-6" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="what-is-meant-by-intermediary">
+<section id="section-2">
+      <h2 id="name-what-is-meant-by-intermedia">
+<a href="#section-2" class="section-number selfRef">2. </a><a href="#name-what-is-meant-by-intermedia" class="section-name selfRef">What is Meant by Intermediary</a>
+      </h2>
+<p id="section-2-1">An intermediary is an element that participates in a protocol exchange.  An
+intermediary receives protocol units, such as packets or messages, and forwards
+the protocol units to other protocol participants.  An intermediary might
+make changes to protocol units or leave the content of the unit unchanged.<a href="#section-2-1" class="pilcrow">¶</a></p>
+<p id="section-2-2">An intermediary often does not directly benefit from the protocol exchange, but
+instead acts to facilitate the exchange.  An intermediary often participates at
+the request of another participant in the protocol, which might be an endpoint
+or an intermediary.<a href="#section-2-2" class="pilcrow">¶</a></p>
+<p id="section-2-3">Intermediaries exist at all layers of the stack.  A router is an intermediary
+that acts at the network layer to forward packets.  A TURN relay <span>[<a href="#RFC8155" class="xref">RFC8155</a>]</span>
+provides similar forwarding capability for UDP in the presence of a network
+address translator (NAT) -- a different type of intermediary that provides the
+ability to share a limited supply of addresses.  At higher layers of the stack,
+group messaging servers intermediate the exchange of messages within groups of
+people; a conference focus aids the sending of media group real-time
+communications; and a social network intermediates communication and
+information sharing through the exchange of messages and formation of groups.<a href="#section-2-3" class="pilcrow">¶</a></p>
+<p id="section-2-4">A person uses a networked computer as an intermediary for their communications
+with other people and computers.  This intermediation is essential, for users
+are unable to directly interact with a network.  Much of the guidance in this
+document does not apply to the relationship between users and user agents; see
+<span>[<a href="#RFC8890" class="xref">RFC8890</a>]</span>, Section <a href="https://rfc-editor.org/rfc/rfc8890#section-4.2" class="relref">4.2</a> in
+particular, for an examination of this topic.<a href="#section-2-4" class="pilcrow">¶</a></p>
+<p id="section-2-5">An intermediary at one layer of the stack is often an endpoint for communication
+at a lower layer.  A Diameter peer <span>[<a href="#DIAMETER" class="xref">DIAMETER</a>]</span> acts as an intermediary
+when it forwards requests to other peers.  However, a Diameter peer establishes
+connections to neighboring peers using TLS/TCP or DTLS/SCTP and acts as a
+endpoint for all of those protocols.<a href="#section-2-5" class="pilcrow">¶</a></p>
+<p id="section-2-6">It is possible to facilitate communication without being an intermediary.  The
+DNS provides information that is critical to locating and communicating with
+other Internet hosts, but it does so without intermediating those
+communications.  Thus, this definition of intermediary does not necessarily
+include a service like the DNS.  Of course, the use of the DNS could involve
+engaging with intermediaries such as recursive resolvers.<a href="#section-2-6" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="intermediation-is-essential">
+<section id="section-3">
+      <h2 id="name-intermediation-is-essential">
+<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-intermediation-is-essential" class="section-name selfRef">Intermediation Is Essential</a>
+      </h2>
+<p id="section-3-1">Intermediaries are essential to scalable communications.  The service an
+intermediary provides usually involves access to resources that would not
+otherwise be available.  For instance, the Internet does not function without
+routers that enable packets to reach other networks.<a href="#section-3-1" class="pilcrow">¶</a></p>
+<p id="section-3-2">There is some level of intermediation that is essential for the proper
+functioning of the Internet.<a href="#section-3-2" class="pilcrow">¶</a></p>
+<p id="section-3-3">Scalable solutions to the introduction problem often depend on services that
+provide access to information and capabilities.  As it is with the network layer
+of the Internet, the use of an intermediary can be absolutely essential.  For
+example, a social networking application acts as an intermediary that provides a
+communications medium, content discovery and publication, and related services.
+Video conferencing applications often depend on an intermediary that mixes audio
+and selectively forwards video so that bandwidth requirements don't increase
+beyond what is available for participants as conferences grow in size.<a href="#section-3-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="intermediation-is-useful">
+<section id="section-4">
+      <h2 id="name-intermediation-is-useful">
+<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-intermediation-is-useful" class="section-name selfRef">Intermediation Is Useful</a>
+      </h2>
+<p id="section-4-1">Not all intermediaries have exclusive control access to the resources they
+provide access to.  A router might facilitate access to other networks, but
+similar access might be obtained via a different route.  The same web content
+might be provided by multiple CDNs.  Multiple DNS resolvers can provide answers
+to the same queries.  The ability to access the same capabilities from multiple
+entities contributes greatly to the robustness of a system.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-4-2">Intermediaries often provide capabilities that benefit from economies of scale
+by providing a service that serves multiple individuals.  For instance,
+individuals are unlikely to be in a position to negotiate connections to
+multiple networks, but an ISP can.  Similarly, an individual might find it
+difficult to acquire the capacity necessary to withstand a DDoS attack, but the
+scale at which a CDN operates means that this capacity is likely available to
+it.  Or the value of a social network is in part due to the existing
+participation of other people.<a href="#section-4-2" class="pilcrow">¶</a></p>
+<p id="section-4-3">Aggregation also provides other potential benefits.  For instance, caching of
+shared information can allow for performance advantages.  From an efficiency
+perspective, the use of shared resources might allow load to be more evenly
+distributed over time.  Or, for privacy, individual activity might be mixed with
+the activity of many others, thereby making it difficult to isolate that
+activity.<a href="#section-4-3" class="pilcrow">¶</a></p>
+<p id="section-4-4">The ability of an intermediary to operate at scale can therefore provide a
+number of different benefits to performance, scalability, privacy, and other
+areas.<a href="#section-4-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="scale">
+<section id="section-5">
+      <h2 id="name-intermediation-enables-scal">
+<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-intermediation-enables-scal" class="section-name selfRef">Intermediation Enables Scaling Of Control</a>
+      </h2>
+<p id="section-5-1">An action by an intermediary can affect all who communicate using that
+intermediary.  For an intermediary that operates at scale, this means it can be
+seen as an effective control point.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-5-2">In addition to facilitating communications, some intermediary deployments aim to
+effect a policy.  This relies on the ability of a well-placed intermediary to
+affect multiple protocol interactions and participants.<a href="#section-5-2" class="pilcrow">¶</a></p>
+<p id="section-5-3">The ability of an intermediary to affect a large number of network users can be
+an advantage or vulnerability, depending on perspective.  For instance, network
+intermediaries have been used to distribute warnings of impending natural
+disasters like fire, flood, or earthquake, which save lives and property.  In
+contrast, control over large-scale communications can enable censorship
+<span>[<a href="#RFC7754" class="xref">RFC7754</a>]</span>, misinformation <span>[<a href="#PARADOX" class="xref">PARADOX</a>]</span>, or
+pervasive monitoring <span>[<a href="#RFC7258" class="xref">RFC7258</a>]</span>.<a href="#section-5-3" class="pilcrow">¶</a></p>
+<p id="section-5-4">Intermediaries that can affect many people can therefore be powerful agents for
+control.  While the morality of actions taken can be subjective, network users
+have to consider the potential for the power they vest in intermediaries to be
+abused or subverted.<a href="#section-5-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="incentives">
+<section id="section-6">
+      <h2 id="name-incentive-misalignment-at-s">
+<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-incentive-misalignment-at-s" class="section-name selfRef">Incentive Misalignment at Scale</a>
+      </h2>
+<p id="section-6-1">A dependency on an intermediary represents a risk to those that take the
+dependency.  The incentives and motives of intermediaries can be important to
+consider when choosing to use an intermediary.<a href="#section-6-1" class="pilcrow">¶</a></p>
+<p id="section-6-2">For instance, the information an intermediary needs to perform its function
+might be used (or abused) for other purposes.  Even the simple function of
+forwarding necessarily involves information about who was communicating, when,
+and the size of messages.  This can reveal more than is trivially apparent
+<span>[<a href="#CLINIC" class="xref">CLINIC</a>]</span>.<a href="#section-6-2" class="pilcrow">¶</a></p>
+<p id="section-6-3">As uses of networks become more diverse, the extent that incentives for
+intermediaries and network users align reduce.  In particular, acceptance of
+the costs and risks associated with intermediation by a majority of network
+users does not mean that all users have the same expectations and requirements.
+This can be a significant problem if it becomes difficult to avoid or refuse
+participation by a particular intermediary.<a href="#section-6-3" class="pilcrow">¶</a></p>
+<p id="section-6-4">A dependency on an intermediary, particularly a technically or operationally
+challenging dependency, can reduce the number of viable choices of intermediary
+operators.  Reduced choice can lead to dependence on specific intermediaries,
+which reduces resilience and exposes endpoints to greater potential for abuse.<a href="#section-6-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="forced-and-unwanted-intermediation">
+<section id="section-7">
+      <h2 id="name-forced-and-unwanted-interme">
+<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-forced-and-unwanted-interme" class="section-name selfRef">Forced and Unwanted Intermediation</a>
+      </h2>
+<p id="section-7-1">The ability to act as intermediary can offer more options than a service that is
+called upon to provide information or services as needed.  Sometimes those
+advantages are enough to justify the use of intermediation over alternative
+designs.  However, the use of an intermediary also introduces costs.<a href="#section-7-1" class="pilcrow">¶</a></p>
+<p id="section-7-2">The use of transparent or interception proxies in HTTP <span>[<a href="#HTTP" class="xref">HTTP</a>]</span> is an
+example of a practice that has fallen out of common usage due to increased use
+of HTTPS.  Use of transparent proxies was once widespread with a wide variety of
+reasons for their deployment.  However, transparent proxies were involved in
+many abuses, such as unwanted transcoding of content and insertion of
+identifiers to the detriment of individual privacy <span>[<a href="#X-UIDH" class="xref">X-UIDH</a>]</span>.<a href="#section-7-2" class="pilcrow">¶</a></p>
+<p id="section-7-3">Introducing intermediaries is often done with the intent of avoiding disruption
+to protocols that operate a higher layer of the stack.  However, network
+layering abstractions often leak, meaning that the effects of the intermediation
+can be observed.  Where those effects cause problems, it can be difficult to
+detect and fix those problems.<a href="#section-7-3" class="pilcrow">¶</a></p>
+<p id="section-7-4">The insertion of an intermediary in a protocol imposes other costs on other
+protocol participants; see <span>[<a href="#EROSION" class="xref">EROSION</a>]</span> or
+<span>[<a href="#MIDDLEBOX" class="xref">MIDDLEBOX</a>]</span>.  In particular, poor implementations of intermediaries
+can adversely affect protocol operation.<a href="#section-7-4" class="pilcrow">¶</a></p>
+<p id="section-7-5">As an intermediary is another participant in a protocol, they can make
+interactions less robust.  Intermediaries can also be responsible for
+ossification, or the inability to deploy new protocol mechanisms; see <span><a href="https://rfc-editor.org/rfc/rfc9170#section-2.3" class="relref">Section 2.3</a> of [<a href="#USE-IT" class="xref">USE-IT</a>]</span>.  For example, measurement of TCP showed that the
+protocol has poor prospects for extensibility due to widespread use -- and poor
+implementation -- of intermediaries <span>[<a href="#TCP-EXTEND" class="xref">TCP-EXTEND</a>]</span>.<a href="#section-7-5" class="pilcrow">¶</a></p>
+<p id="section-7-6">Some forms of intermediation have been deployed without consulting the endpoints
+involved in the protocol.  As protocols evolve or a more diverse set of
+deployments are encountered, assumptions that might have been valid at the time
+the intermediary was deployed might not hold.  For example, some intermediaries
+identified a very early version of QUIC <span>[<a href="#RFC9000" class="xref">RFC9000</a>]</span> by checking that the first
+byte of the UDP payload was to to a value of 0x07.  As this version used the
+different bits in this byte to signal different protocol options, when endpoints
+started to exercise the options represented by other values the classification
+failed.<a href="#section-7-6" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="contention-over-intermediation">
+<section id="section-8">
+      <h2 id="name-contention-over-intermediat">
+<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-contention-over-intermediat" class="section-name selfRef">Contention over Intermediation</a>
+      </h2>
+<p id="section-8-1">The IETF has a long history of dealing with different forms of intermediation.<a href="#section-8-1" class="pilcrow">¶</a></p>
+<p id="section-8-2">A debate about the intent and purpose of IPv6 extension headers
+<span>[<a href="#IPv6" class="xref">IPv6</a>]</span> occurred prior to the publication of RFC 8986
+<span>[<a href="#SRv6" class="xref">SRv6</a>]</span>, in particular, it's PSP (Penultimate Segment Pop) mode.
+Here, the use of extension headers by entities other than the communication
+endpoints -- that is, intermediaries -- was contested.  As the purpose of this
+feature is to communicate routing information between intermediaries, this could
+be seen as a form of tunneling between the communicating routers that uses the
+ability of IPv6 intermediaries (or routers) to add or remove extension headers.<a href="#section-8-2" class="pilcrow">¶</a></p>
+<p id="section-8-3">Like HTTP, SIP <span>[<a href="#RFC3261" class="xref">RFC3261</a>]</span> defines a role for a proxy, which is a form of
+intermediary with limited ability to interact with the session that it
+facilitates.  In practice, many deployments instead choose to deploy some form
+of Back-to-Back UA (B2BUA; <span>[<a href="#RFC7092" class="xref">RFC7092</a>]</span>) for reasons that effectively reduce to
+greater ability to implement control functions.<a href="#section-8-3" class="pilcrow">¶</a></p>
+<p id="section-8-4">There are several ongoing debates in the IETF that are rooted in disagreement
+about the rule of intermediaries.  The interests of network-based devices --
+which sometimes act as TLS intermediaries -- is fiercely debated in the context
+of TLS 1.3 <span>[<a href="#TLS" class="xref">TLS</a>]</span>, where the design renders certain practices
+obsolete.<a href="#section-8-4" class="pilcrow">¶</a></p>
+<p id="section-8-5">The functions provided by intermediaries in different protocols can be
+dramatically different. Even within the one protocol, the same protocol might be
+deployed to address many different needs.  For an existing protocol with wide
+deployment, there might not be a single, easy method for managing the
+integration of the functions that intermediaries provide.<a href="#section-8-5" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="principles">
+<section id="section-9">
+      <h2 id="name-proposed-principles">
+<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-proposed-principles" class="section-name selfRef">Proposed Principles</a>
+      </h2>
+<p id="section-9-1">Many problems caused by intermediation are the result of intermediaries that
+are introduced without the involvement of protocol endpoints.  Limiting the
+extent to which protocol designs depend on intermediaries makes the resulting
+system more robust.<a href="#section-9-1" class="pilcrow">¶</a></p>
+<p id="section-9-2">These principles are progressive, with three stages:<a href="#section-9-2" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-9-3">
+<li id="section-9-3.1">Prefer designs without intermediaries (<a href="#prefer-services" class="xref">Section 9.1</a>);<a href="#section-9-3.1" class="pilcrow">¶</a>
+</li>
+        <li id="section-9-3.2">Failing that, control which entities can intermediate the protocol
+(<a href="#limit-participants" class="xref">Section 9.2</a>); and<a href="#section-9-3.2" class="pilcrow">¶</a>
+</li>
+        <li id="section-9-3.3">Limit actions and information that are available to intermediaries
+(<a href="#limit-capabilities" class="xref">Section 9.3</a>).<a href="#section-9-3.3" class="pilcrow">¶</a>
+</li>
+      </ol>
+<p id="section-9-4">The use of technical mechanisms to ensure that these principles are enforced is
+encouraged.  It is expected that protocols will need to use cryptography for
+this.<a href="#section-9-4" class="pilcrow">¶</a></p>
+<p id="section-9-5">New protocol designs therefore need to identify what intermediation is possible
+and what is desired.  Technical mechanisms to guarantee conformance, where
+possible, are highly recommended.<a href="#section-9-5" class="pilcrow">¶</a></p>
+<p id="section-9-6">Modifying existing protocols to follow these principles could be difficult, but
+worthwhile.<a href="#section-9-6" class="pilcrow">¶</a></p>
+<div id="prefer-services">
+<section id="section-9.1">
+        <h3 id="name-prefer-services-to-intermed">
+<a href="#section-9.1" class="section-number selfRef">9.1. </a><a href="#name-prefer-services-to-intermed" class="section-name selfRef">Prefer Services to Intermediaries</a>
+        </h3>
+<p id="section-9.1-1">Where protocol functions can provided by a service or a means other than
+intermediation, the design should prefer that alternative.<a href="#section-9.1-1" class="pilcrow">¶</a></p>
+<p id="section-9.1-2">Designing protocols to use services rather than intermediaries ensures that
+responsibilities of protocol participants are clearly defined.<a href="#section-9.1-2" class="pilcrow">¶</a></p>
+<p id="section-9.1-3">If there is a need for information, defining a means for querying a service for
+that information is preferable to allowing an intermediary to add information
+during an exchange.  Similarly, direct invocation of service to perform an
+action is better than involving that service as a participant in the protocol.<a href="#section-9.1-3" class="pilcrow">¶</a></p>
+<p id="section-9.1-4">Involving an intermediary in a protocol means depending on that intermediary for
+every aspect of protocol functioning.  For example, it might be necessary to
+negotiate the use of new capabilities with all protocol participants, including
+the intermediary, even when the functions for which the intermediary was added
+are not affected.  It is also more difficult to limit the extent to which a
+protocol participant can be involved than a service that is invoked for a
+specific task.<a href="#section-9.1-4" class="pilcrow">¶</a></p>
+<p id="section-9.1-5">Using discrete services is not always the most performant architecture as
+additional network interactions can add latency or other overheads.  The cost of
+these overheads need to be weighed against the recurrent costs from the
+involvement of intermediaries.<a href="#section-9.1-5" class="pilcrow">¶</a></p>
+<p id="section-9.1-6">The contribution of an intermediary to performance and efficiency can involve
+trade-offs, such as those discussed in Section 2.3 of <span>[<a href="#E2E" class="xref">E2E</a>]</span>.  One
+consideration is the potential need for critical functions to be replicated in
+both intermediaries and endpoints, reducing efficiency.  Another is the
+possibility that an intermediary optimized for one application could degrade
+performance in other applications.<a href="#section-9.1-6" class="pilcrow">¶</a></p>
+<p id="section-9.1-7">Preferring services is analogous to the software design principle that
+recommends a preference for composition over inheritance <span>[<a href="#PATTERNS" class="xref">PATTERNS</a>]</span>.<a href="#section-9.1-7" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="limit-participants">
+<section id="section-9.2">
+        <h3 id="name-deliberately-select-protoco">
+<a href="#section-9.2" class="section-number selfRef">9.2. </a><a href="#name-deliberately-select-protoco" class="section-name selfRef">Deliberately Select Protocol Participants</a>
+        </h3>
+<p id="section-9.2-1">Protocol participants should know what other participants they might be
+interacting with, including intermediaries.<a href="#section-9.2-1" class="pilcrow">¶</a></p>
+<p id="section-9.2-2">Protocols that permit the involvement of an intermediary need to do so
+intentionally and provide measures that prevent the addition of unwanted
+intermediaries.  Ideally, all protocol participants are identified and known to
+other protocol participants.<a href="#section-9.2-2" class="pilcrow">¶</a></p>
+<p id="section-9.2-3">The addition of an unwanted protocol participant is an attack on the protocol.<a href="#section-9.2-3" class="pilcrow">¶</a></p>
+<p id="section-9.2-4">This is an extension of the conclusion of <span>[<a href="#PATH-SIGNALS" class="xref">PATH-SIGNALS</a>]</span>, which:<a href="#section-9.2-4" class="pilcrow">¶</a></p>
+<blockquote id="section-9.2-5">
+          <p id="section-9.2-5.1">recommends that implicit signals should be avoided and that an implicit signal
+should be replaced with an explicit signal only when the signal's originator
+intends that it be used by the network elements on the path.<a href="#section-9.2-5.1" class="pilcrow">¶</a></p>
+</blockquote>
+<p id="section-9.2-6">Applying this principle likely requires the use of authentication and
+encryption.<a href="#section-9.2-6" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="limit-capabilities">
+<section id="section-9.3">
+        <h3 id="name-limit-capabilities-of-inter">
+<a href="#section-9.3" class="section-number selfRef">9.3. </a><a href="#name-limit-capabilities-of-inter" class="section-name selfRef">Limit Capabilities of Intermediaries</a>
+        </h3>
+<p id="section-9.3-1">Protocol participants should be able to limit the capabilities conferred to
+other protocol participants.  Though this applies to all participants,
+intermediaries often have narrowly-defined roles.<a href="#section-9.3-1" class="pilcrow">¶</a></p>
+<p id="section-9.3-2">Where the potential for intermediation already exists, or intermediaries
+provide essential functions, protocol designs should limit the capabilities and
+information that protocol participants are required to grant others.<a href="#section-9.3-2" class="pilcrow">¶</a></p>
+<p id="section-9.3-3">Limiting the information that participants are required to provide to other
+participants has benefits for privacy or to limit the potential for misuse of
+information; see <a href="#limit-info" class="xref">Section 9.3.1</a>.  Where confidentiality is impossible or
+impractical, integrity protection can be used to ensure that data origin
+authentication is preserved; see <a href="#limit-changes" class="xref">Section 9.3.2</a>.<a href="#section-9.3-3" class="pilcrow">¶</a></p>
+<div id="limit-info">
+<section id="section-9.3.1">
+          <h4 id="name-limit-information-exposure">
+<a href="#section-9.3.1" class="section-number selfRef">9.3.1. </a><a href="#name-limit-information-exposure" class="section-name selfRef">Limit Information Exposure</a>
+          </h4>
+<p id="section-9.3.1-1">Protocol participants should only have access to the information they need to
+perform their designated function.<a href="#section-9.3.1-1" class="pilcrow">¶</a></p>
+<p id="section-9.3.1-2">Protocol designs based on a principle of providing the minimum information
+necessary have several benefits.  In addition to simplicity, requiring smaller
+messages, or fewer exchanges, reducing information provides greater control over
+exposure of information.  This has privacy benefits.<a href="#section-9.3.1-2" class="pilcrow">¶</a></p>
+<p id="section-9.3.1-3">Where an intermediary needs to carry information that it has no need to access,
+protocols should use encryption to ensure that the intermediary cannot access
+that information.<a href="#section-9.3.1-3" class="pilcrow">¶</a></p>
+<p id="section-9.3.1-4">Providing information for intermediaries using signals that are separate from
+other protocol signaling is preferable <span>[<a href="#PATH-SIGNALS" class="xref">PATH-SIGNALS</a>]</span>.  In addition,
+integrity protection should be applied to these signals to prevent modification.<a href="#section-9.3.1-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="limit-changes">
+<section id="section-9.3.2">
+          <h4 id="name-limit-permitted-interaction">
+<a href="#section-9.3.2" class="section-number selfRef">9.3.2. </a><a href="#name-limit-permitted-interaction" class="section-name selfRef">Limit Permitted Interactions</a>
+          </h4>
+<p id="section-9.3.2-1">An action should only be taken based on signals from protocol participants that
+are authorized to request that action.<a href="#section-9.3.2-1" class="pilcrow">¶</a></p>
+<p id="section-9.3.2-2">Where an intermediary needs to communicate with other protocol participants,
+ensure that these signals are attributed to an intermediary.  Authentication is
+the best means of ensuring signals generated by protocol participants are
+correctly attributed.  Authentication informs decisions protocol participants
+make about actions they take.<a href="#section-9.3.2-2" class="pilcrow">¶</a></p>
+<p id="section-9.3.2-3">In some cases, particularly protocols that are primarily two-party protocols, it
+might be sufficient to allow the signal to be attributed to any intermediary.
+This is the case in QUIC <span>[<a href="#RFC9000" class="xref">RFC9000</a>]</span> where ECN <span>[<a href="#ECN" class="xref">ECN</a>]</span> and ICMP
+<span>[<a href="#ICMP" class="xref">ICMP</a>]</span> signals are assumed to be provided by elements on the network
+path.  Limited mechanisms exist to authenticate these as signals that originate
+from path elements, informing actions taken by endpoints.  Consequently, the
+actions that can be taken in response to these signals is limited.<a href="#section-9.3.2-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="costs-of-technical-constraints">
+<section id="section-9.3.3">
+          <h4 id="name-costs-of-technical-constrai">
+<a href="#section-9.3.3" class="section-number selfRef">9.3.3. </a><a href="#name-costs-of-technical-constrai" class="section-name selfRef">Costs of Technical Constraints</a>
+          </h4>
+<p id="section-9.3.3-1">Moving from a protocol in which there are two participants (such as
+<span>[<a href="#TLS" class="xref">TLS</a>]</span>) to more than two participants can be more complex and
+expensive to implement and deploy.<a href="#section-9.3.3-1" class="pilcrow">¶</a></p>
+<p id="section-9.3.3-2">More generally, the application of technical measures to control how
+intermediaries participate in a protocol incur costs that manifest in several
+ways.  Protocols are more difficult to design; implementations are larger and
+more complex; and deployments might suffer from added operational costs, higher
+computation loads, and more bandwidth consumption.  These costs are reflective
+of the true cost of involving additional entities in protocols.  In protocols
+without technical measures to limit participation, these costs have
+historically been borne by other protocol participants.<a href="#section-9.3.3-2" class="pilcrow">¶</a></p>
+<p id="section-9.3.3-3">In general however, most protocols are able to reuse existing mechanisms for
+cryptographic protection, such as TLS <span>[<a href="#TLS" class="xref">TLS</a>]</span>.  Adopting something like TLS
+provides security properties that are well understood and analyzed.  Using a
+standardized solution enables use of well-tested implementations that include
+optimizations and other mitigations for these costs.<a href="#section-9.3.3-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+</section>
+</div>
+<div id="applying-non-technical-constraints">
+<section id="section-10">
+      <h2 id="name-applying-non-technical-cons">
+<a href="#section-10" class="section-number selfRef">10. </a><a href="#name-applying-non-technical-cons" class="section-name selfRef">Applying Non-Technical Constraints</a>
+      </h2>
+<p id="section-10-1">Not all intermediary functions can be tightly constrained.  For instance, as
+described in <a href="#incentives" class="xref">Section 6</a>, some functions involve granting intermediaries
+access to information that can be used for more than its intended purpose.
+Applying strong technical constraints on how that information is used might be
+infeasible or impossible.<a href="#section-10-1" class="pilcrow">¶</a></p>
+<p id="section-10-2">Systems that audit the involvement in protocols can use authentication to
+improve accountability.  Authentication can enable the use of legal,
+social, or other types of control that might cover any shortfall in technical
+measures.<a href="#section-10-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="the-effect-on-existing-practices">
+<section id="section-11">
+      <h2 id="name-the-effect-on-existing-prac">
+<a href="#section-11" class="section-number selfRef">11. </a><a href="#name-the-effect-on-existing-prac" class="section-name selfRef">The Effect on Existing Practices</a>
+      </h2>
+<p id="section-11-1">The application of these principles can have an effect on existing operational
+practices, particularly where they rely on protocols not limiting intermediary
+access.  Several documents have explored aspects of this in detail:<a href="#section-11-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-11-2.1">
+          <span>[<a href="#RFC8404" class="xref">RFC8404</a>]</span> describes effects of encryption on practices performed by
+intermediaries;<a href="#section-11-2.1" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-11-2.2">
+          <span>[<a href="#RFC8517" class="xref">RFC8517</a>]</span> describes a broader set of practices;<a href="#section-11-2.2" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-11-2.3">
+          <span>[<a href="#RFC9065" class="xref">RFC9065</a>]</span> explores the effect on transport-layer intermediaries in more
+detail; and<a href="#section-11-2.3" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-11-2.4">
+          <span>[<a href="#NS-IMPACT" class="xref">NS-IMPACT</a>]</span> examines the effect of TLS on
+operational network security practices.<a href="#section-11-2.4" class="pilcrow">¶</a>
+</li>
+      </ul>
+<p id="section-11-3">In all these documents, the defining characteristic is the move from a system
+that lacked controls on participation to one in which technical controls are
+employed.  In each case, the protocols in question provided little or no
+technical controls that prevented the addition of intermediaries.  This allowed
+for the insertion of intermediaries into sessions without permission or
+knowledge of other protocol participants.  Adding controls like encryption
+and authentication disrupts these practices.<a href="#section-11-3" class="pilcrow">¶</a></p>
+<p id="section-11-4">Overall, the advantages derived from having greater control over or knowledge of
+other protocol participants outweighs these costs.<a href="#section-11-4" class="pilcrow">¶</a></p>
+<p id="section-11-5">In these settings, finding ways for intermediaries to contribute is an ongoing
+process.  When looking at how intermediaries contributed to protocols operation
+prior to the introduction of technical controls there are three potential
+classes of outcome of these discussion:<a href="#section-11-5" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-11-6.1">Practices might be deemed valuable.  Facilities might be added to protocols to
+allow or encourage those practices.<a href="#section-11-6.1" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-11-6.2">The use case supported by the practice might be deemed valuable, but the
+existence of a superior alternative approach could make further effort
+unnecessary.<a href="#section-11-6.2" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-11-6.3">Practices might be deemed harmful, such that no replacement mechanism is
+needed.<a href="#section-11-6.3" class="pilcrow">¶</a>
+</li>
+      </ul>
+<p id="section-11-7">Many factors could influence the outcome of this analysis.  For instance,
+deployment of alternative methods or limited roles for intermediaries could be
+relatively simple for new protocol deployments; whereas it might be challenging
+to retrofit controls on existing protocol deployments.<a href="#section-11-7" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="security-considerations">
+<section id="section-12">
+      <h2 id="name-security-considerations">
+<a href="#section-12" class="section-number selfRef">12. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
+      </h2>
+<p id="section-12-1">Understanding how intermediaries participate is highly relevant to the security
+of a protocol.  The principles in <a href="#principles" class="xref">Section 9</a> are fundamentally an
+application of a security principle: namely the principle of least privilege
+<span>[<a href="#LEAST-PRIVILEGE" class="xref">LEAST-PRIVILEGE</a>]</span>.<a href="#section-12-1" class="pilcrow">¶</a></p>
+<p id="section-12-2">Lack of proper controls on intermediaries in protocols has been the source of
+significant security problems.  A protocol is not secure if it fails to prevent
+an intermediary from consuming, modifying, or generating protocol units in ways
+that are contrary to the interests of other protocol participants.<a href="#section-12-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="iana-considerations">
+<section id="section-13">
+      <h2 id="name-iana-considerations">
+<a href="#section-13" class="section-number selfRef">13. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
+      </h2>
+<p id="section-13-1">This document has no IANA actions.<a href="#section-13-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<section id="section-14">
+      <h2 id="name-informative-references">
+<a href="#section-14" class="section-number selfRef">14. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
+      </h2>
+<dl class="references">
+<dt id="CLINIC">[CLINIC]</dt>
+      <dd>
+<span class="refAuthor">Miller, B.</span>, <span class="refAuthor">Huang, L.</span>, <span class="refAuthor">Joseph, A.</span>, and <span class="refAuthor">J. Tygar</span>, <span class="refTitle">"I Know Why You Went to the Clinic: Risks and Realization of HTTPS Traffic Analysis"</span>, <span class="seriesInfo">Privacy Enhancing Technologies pp. 143-163</span>, <span class="seriesInfo">DOI 10.1007/978-3-319-08506-7_8</span>, <time datetime="2014" class="refDate">2014</time>, <span>&lt;<a href="https://doi.org/10.1007/978-3-319-08506-7_8">https://doi.org/10.1007/978-3-319-08506-7_8</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="DIAMETER">[DIAMETER]</dt>
+      <dd>
+<span class="refAuthor">Fajardo, V., Ed.</span>, <span class="refAuthor">Arkko, J.</span>, <span class="refAuthor">Loughney, J.</span>, and <span class="refAuthor">G. Zorn, Ed.</span>, <span class="refTitle">"Diameter Base Protocol"</span>, <span class="seriesInfo">RFC 6733</span>, <span class="seriesInfo">DOI 10.17487/RFC6733</span>, <time datetime="2012-10" class="refDate">October 2012</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6733">https://www.rfc-editor.org/rfc/rfc6733</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="E2E">[E2E]</dt>
+      <dd>
+<span class="refAuthor">Saltzer, J.</span>, <span class="refAuthor">Reed, D.</span>, and <span class="refAuthor">D. Clark</span>, <span class="refTitle">"End-to-end arguments in system design"</span>, <span class="seriesInfo">ACM Transactions on Computer Systems vol. 2, no. 4, pp. 277-288</span>, <span class="seriesInfo">DOI 10.1145/357401.357402</span>, <time datetime="1984-11" class="refDate">November 1984</time>, <span>&lt;<a href="https://doi.org/10.1145/357401.357402">https://doi.org/10.1145/357401.357402</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="ECN">[ECN]</dt>
+      <dd>
+<span class="refAuthor">Ramakrishnan, K.</span>, <span class="refAuthor">Floyd, S.</span>, and <span class="refAuthor">D. Black</span>, <span class="refTitle">"The Addition of Explicit Congestion Notification (ECN) to IP"</span>, <span class="seriesInfo">RFC 3168</span>, <span class="seriesInfo">DOI 10.17487/RFC3168</span>, <time datetime="2001-09" class="refDate">September 2001</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc3168">https://www.rfc-editor.org/rfc/rfc3168</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="EROSION">[EROSION]</dt>
+      <dd>
+<span class="refAuthor">Hildebrand, J.</span> and <span class="refAuthor">P. McManus</span>, <span class="refTitle">"Erosion of the moral authority of transparent middleboxes"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-hildebrand-middlebox-erosion-01</span>, <time datetime="2014-11-10" class="refDate">10 November 2014</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-hildebrand-middlebox-erosion-01">https://datatracker.ietf.org/doc/html/draft-hildebrand-middlebox-erosion-01</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="HTTP">[HTTP]</dt>
+      <dd>
+<span class="refAuthor">Fielding, R., Ed.</span>, <span class="refAuthor">Nottingham, M., Ed.</span>, and <span class="refAuthor">J. Reschke, Ed.</span>, <span class="refTitle">"HTTP Semantics"</span>, <span class="seriesInfo">STD 97</span>, <span class="seriesInfo">RFC 9110</span>, <span class="seriesInfo">DOI 10.17487/RFC9110</span>, <time datetime="2022-06" class="refDate">June 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9110">https://www.rfc-editor.org/rfc/rfc9110</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="ICMP">[ICMP]</dt>
+      <dd>
+<span class="refAuthor">Postel, J.</span>, <span class="refTitle">"Internet Control Message Protocol"</span>, <span class="seriesInfo">STD 5</span>, <span class="seriesInfo">RFC 792</span>, <span class="seriesInfo">DOI 10.17487/RFC0792</span>, <time datetime="1981-09" class="refDate">September 1981</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc792">https://www.rfc-editor.org/rfc/rfc792</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="IPv6">[IPv6]</dt>
+      <dd>
+<span class="refAuthor">Deering, S.</span> and <span class="refAuthor">R. Hinden</span>, <span class="refTitle">"Internet Protocol, Version 6 (IPv6) Specification"</span>, <span class="seriesInfo">STD 86</span>, <span class="seriesInfo">RFC 8200</span>, <span class="seriesInfo">DOI 10.17487/RFC8200</span>, <time datetime="2017-07" class="refDate">July 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8200">https://www.rfc-editor.org/rfc/rfc8200</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="LEAST-PRIVILEGE">[LEAST-PRIVILEGE]</dt>
+      <dd>
+<span class="refAuthor">Saltzer, J.</span>, <span class="refTitle">"Protection and the control of information sharing in multics"</span>, <span class="seriesInfo">Communications of the ACM vol. 17, no. 7, pp. 388-402</span>, <span class="seriesInfo">DOI 10.1145/361011.361067</span>, <time datetime="1974-07" class="refDate">July 1974</time>, <span>&lt;<a href="https://doi.org/10.1145/361011.361067">https://doi.org/10.1145/361011.361067</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="MIDDLEBOX">[MIDDLEBOX]</dt>
+      <dd>
+<span class="refAuthor">Carpenter, B.</span> and <span class="refAuthor">S. Brim</span>, <span class="refTitle">"Middleboxes: Taxonomy and Issues"</span>, <span class="seriesInfo">RFC 3234</span>, <span class="seriesInfo">DOI 10.17487/RFC3234</span>, <time datetime="2002-02" class="refDate">February 2002</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc3234">https://www.rfc-editor.org/rfc/rfc3234</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="NS-IMPACT">[NS-IMPACT]</dt>
+      <dd>
+<span class="refAuthor">Cam-Winget, N.</span>, <span class="refAuthor">Wang, E.</span>, <span class="refAuthor">Danyliw, R.</span>, and <span class="refAuthor">R. DuToit</span>, <span class="refTitle">"Impact of TLS 1.3 to Operational Network Security Practices"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-opsec-ns-impact-04</span>, <time datetime="2021-01-26" class="refDate">26 January 2021</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-opsec-ns-impact-04">https://datatracker.ietf.org/doc/html/draft-ietf-opsec-ns-impact-04</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="PARADOX">[PARADOX]</dt>
+      <dd>
+<span class="refAuthor">Valenzuela, S.</span>, <span class="refAuthor">Halpern, D.</span>, <span class="refAuthor">Katz, J.</span>, and <span class="refAuthor">J. Miranda</span>, <span class="refTitle">"The Paradox of Participation Versus Misinformation: Social Media, Political Engagement, and the Spread of Misinformation"</span>, <span class="seriesInfo">Digital Journalism vol. 7, no. 6, pp. 802-823</span>, <span class="seriesInfo">DOI 10.1080/21670811.2019.1623701</span>, <time datetime="2019-06" class="refDate">June 2019</time>, <span>&lt;<a href="https://doi.org/10.1080/21670811.2019.1623701">https://doi.org/10.1080/21670811.2019.1623701</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="PATH-SIGNALS">[PATH-SIGNALS]</dt>
+      <dd>
+<span class="refAuthor">Hardie, T., Ed.</span>, <span class="refTitle">"Transport Protocol Path Signals"</span>, <span class="seriesInfo">RFC 8558</span>, <span class="seriesInfo">DOI 10.17487/RFC8558</span>, <time datetime="2019-04" class="refDate">April 2019</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8558">https://www.rfc-editor.org/rfc/rfc8558</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="PATTERNS">[PATTERNS]</dt>
+      <dd>
+<span class="refAuthor">Gamma, E.</span>, <span class="refAuthor">Helm, R.</span>, <span class="refAuthor">Johnson, R.</span>, and <span class="refAuthor">J. Vlissides</span>, <span class="refTitle">"Design Patterns: Elements of Reusable Object-Oriented Software"</span>, <time datetime="1994" class="refDate">1994</time>. </dd>
+<dd class="break"></dd>
+<dt id="RFC3261">[RFC3261]</dt>
+      <dd>
+<span class="refAuthor">Rosenberg, J.</span>, <span class="refAuthor">Schulzrinne, H.</span>, <span class="refAuthor">Camarillo, G.</span>, <span class="refAuthor">Johnston, A.</span>, <span class="refAuthor">Peterson, J.</span>, <span class="refAuthor">Sparks, R.</span>, <span class="refAuthor">Handley, M.</span>, and <span class="refAuthor">E. Schooler</span>, <span class="refTitle">"SIP: Session Initiation Protocol"</span>, <span class="seriesInfo">RFC 3261</span>, <span class="seriesInfo">DOI 10.17487/RFC3261</span>, <time datetime="2002-06" class="refDate">June 2002</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc3261">https://www.rfc-editor.org/rfc/rfc3261</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC3552">[RFC3552]</dt>
+      <dd>
+<span class="refAuthor">Rescorla, E.</span> and <span class="refAuthor">B. Korver</span>, <span class="refTitle">"Guidelines for Writing RFC Text on Security Considerations"</span>, <span class="seriesInfo">BCP 72</span>, <span class="seriesInfo">RFC 3552</span>, <span class="seriesInfo">DOI 10.17487/RFC3552</span>, <time datetime="2003-07" class="refDate">July 2003</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc3552">https://www.rfc-editor.org/rfc/rfc3552</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC3724">[RFC3724]</dt>
+      <dd>
+<span class="refAuthor">Kempf, J., Ed.</span>, <span class="refAuthor">Austein, R., Ed.</span>, and <span class="refAuthor">IAB</span>, <span class="refTitle">"The Rise of the Middle and the Future of End-to-End: Reflections on the Evolution of the Internet Architecture"</span>, <span class="seriesInfo">RFC 3724</span>, <span class="seriesInfo">DOI 10.17487/RFC3724</span>, <time datetime="2004-03" class="refDate">March 2004</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc3724">https://www.rfc-editor.org/rfc/rfc3724</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC7092">[RFC7092]</dt>
+      <dd>
+<span class="refAuthor">Kaplan, H.</span> and <span class="refAuthor">V. Pascual</span>, <span class="refTitle">"A Taxonomy of Session Initiation Protocol (SIP) Back-to-Back User Agents"</span>, <span class="seriesInfo">RFC 7092</span>, <span class="seriesInfo">DOI 10.17487/RFC7092</span>, <time datetime="2013-12" class="refDate">December 2013</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7092">https://www.rfc-editor.org/rfc/rfc7092</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC7258">[RFC7258]</dt>
+      <dd>
+<span class="refAuthor">Farrell, S.</span> and <span class="refAuthor">H. Tschofenig</span>, <span class="refTitle">"Pervasive Monitoring Is an Attack"</span>, <span class="seriesInfo">BCP 188</span>, <span class="seriesInfo">RFC 7258</span>, <span class="seriesInfo">DOI 10.17487/RFC7258</span>, <time datetime="2014-05" class="refDate">May 2014</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7258">https://www.rfc-editor.org/rfc/rfc7258</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC7754">[RFC7754]</dt>
+      <dd>
+<span class="refAuthor">Barnes, R.</span>, <span class="refAuthor">Cooper, A.</span>, <span class="refAuthor">Kolkman, O.</span>, <span class="refAuthor">Thaler, D.</span>, and <span class="refAuthor">E. Nordmark</span>, <span class="refTitle">"Technical Considerations for Internet Service Blocking and Filtering"</span>, <span class="seriesInfo">RFC 7754</span>, <span class="seriesInfo">DOI 10.17487/RFC7754</span>, <time datetime="2016-03" class="refDate">March 2016</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7754">https://www.rfc-editor.org/rfc/rfc7754</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8155">[RFC8155]</dt>
+      <dd>
+<span class="refAuthor">Patil, P.</span>, <span class="refAuthor">Reddy, T.</span>, and <span class="refAuthor">D. Wing</span>, <span class="refTitle">"Traversal Using Relays around NAT (TURN) Server Auto Discovery"</span>, <span class="seriesInfo">RFC 8155</span>, <span class="seriesInfo">DOI 10.17487/RFC8155</span>, <time datetime="2017-04" class="refDate">April 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8155">https://www.rfc-editor.org/rfc/rfc8155</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8404">[RFC8404]</dt>
+      <dd>
+<span class="refAuthor">Moriarty, K., Ed.</span> and <span class="refAuthor">A. Morton, Ed.</span>, <span class="refTitle">"Effects of Pervasive Encryption on Operators"</span>, <span class="seriesInfo">RFC 8404</span>, <span class="seriesInfo">DOI 10.17487/RFC8404</span>, <time datetime="2018-07" class="refDate">July 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8404">https://www.rfc-editor.org/rfc/rfc8404</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8517">[RFC8517]</dt>
+      <dd>
+<span class="refAuthor">Dolson, D., Ed.</span>, <span class="refAuthor">Snellman, J.</span>, <span class="refAuthor">Boucadair, M., Ed.</span>, and <span class="refAuthor">C. Jacquenet</span>, <span class="refTitle">"An Inventory of Transport-Centric Functions Provided by Middleboxes: An Operator Perspective"</span>, <span class="seriesInfo">RFC 8517</span>, <span class="seriesInfo">DOI 10.17487/RFC8517</span>, <time datetime="2019-02" class="refDate">February 2019</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8517">https://www.rfc-editor.org/rfc/rfc8517</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8890">[RFC8890]</dt>
+      <dd>
+<span class="refAuthor">Nottingham, M.</span>, <span class="refTitle">"The Internet is for End Users"</span>, <span class="seriesInfo">RFC 8890</span>, <span class="seriesInfo">DOI 10.17487/RFC8890</span>, <time datetime="2020-08" class="refDate">August 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8890">https://www.rfc-editor.org/rfc/rfc8890</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9000">[RFC9000]</dt>
+      <dd>
+<span class="refAuthor">Iyengar, J., Ed.</span> and <span class="refAuthor">M. Thomson, Ed.</span>, <span class="refTitle">"QUIC: A UDP-Based Multiplexed and Secure Transport"</span>, <span class="seriesInfo">RFC 9000</span>, <span class="seriesInfo">DOI 10.17487/RFC9000</span>, <time datetime="2021-05" class="refDate">May 2021</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9000">https://www.rfc-editor.org/rfc/rfc9000</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9065">[RFC9065]</dt>
+      <dd>
+<span class="refAuthor">Fairhurst, G.</span> and <span class="refAuthor">C. Perkins</span>, <span class="refTitle">"Considerations around Transport Header Confidentiality, Network Operations, and the Evolution of Internet Transport Protocols"</span>, <span class="seriesInfo">RFC 9065</span>, <span class="seriesInfo">DOI 10.17487/RFC9065</span>, <time datetime="2021-07" class="refDate">July 2021</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9065">https://www.rfc-editor.org/rfc/rfc9065</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="SRv6">[SRv6]</dt>
+      <dd>
+<span class="refAuthor">Filsfils, C., Ed.</span>, <span class="refAuthor">Camarillo, P., Ed.</span>, <span class="refAuthor">Leddy, J.</span>, <span class="refAuthor">Voyer, D.</span>, <span class="refAuthor">Matsushima, S.</span>, and <span class="refAuthor">Z. Li</span>, <span class="refTitle">"Segment Routing over IPv6 (SRv6) Network Programming"</span>, <span class="seriesInfo">RFC 8986</span>, <span class="seriesInfo">DOI 10.17487/RFC8986</span>, <time datetime="2021-02" class="refDate">February 2021</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8986">https://www.rfc-editor.org/rfc/rfc8986</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="TCP-EXTEND">[TCP-EXTEND]</dt>
+      <dd>
+<span class="refAuthor">Honda, M.</span>, <span class="refAuthor">Nishida, Y.</span>, <span class="refAuthor">Raiciu, C.</span>, <span class="refAuthor">Greenhalgh, A.</span>, <span class="refAuthor">Handley, M.</span>, and <span class="refAuthor">H. Tokuda</span>, <span class="refTitle">"Is it still possible to extend TCP?"</span>, <span class="seriesInfo">Proceedings of the 2011 ACM SIGCOMM conference on Internet measurement conference - IMC '11</span>, <span class="seriesInfo">DOI 10.1145/2068816.2068834</span>, <time datetime="2011" class="refDate">2011</time>, <span>&lt;<a href="https://doi.org/10.1145/2068816.2068834">https://doi.org/10.1145/2068816.2068834</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="TLS">[TLS]</dt>
+      <dd>
+<span class="refAuthor">Rescorla, E.</span>, <span class="refTitle">"The Transport Layer Security (TLS) Protocol Version 1.3"</span>, <span class="seriesInfo">RFC 8446</span>, <span class="seriesInfo">DOI 10.17487/RFC8446</span>, <time datetime="2018-08" class="refDate">August 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8446">https://www.rfc-editor.org/rfc/rfc8446</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="USE-IT">[USE-IT]</dt>
+      <dd>
+<span class="refAuthor">Thomson, M.</span> and <span class="refAuthor">T. Pauly</span>, <span class="refTitle">"Long-Term Viability of Protocol Extension Mechanisms"</span>, <span class="seriesInfo">RFC 9170</span>, <span class="seriesInfo">DOI 10.17487/RFC9170</span>, <time datetime="2021-12" class="refDate">December 2021</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9170">https://www.rfc-editor.org/rfc/rfc9170</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="X-UIDH">[X-UIDH]</dt>
+    <dd>
+<span class="refTitle">"Verizon Wireless’ use of a Unique Identifier Header (UIDH)"</span>, <time datetime="2012-10-19" class="refDate">19 October 2012</time>, <span>&lt;<a href="https://www.verizon.com/about/news/vzw/2012/10/verizon-wireless-privacy-policy">https://www.verizon.com/about/news/vzw/2012/10/verizon-wireless-privacy-policy</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+</dl>
+</section>
+<div id="acknowledgments">
+<section id="appendix-A">
+      <h2 id="name-acknowledgments">
+<a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-acknowledgments" class="section-name selfRef">Acknowledgments</a>
+      </h2>
+<p id="appendix-A-1">This document is merely an attempt to codify existing practice.  Practice that
+is inspired, at least in part, by prior work, including <span>[<a href="#RFC3552" class="xref">RFC3552</a>]</span> and
+<span>[<a href="#RFC3724" class="xref">RFC3724</a>]</span> which both advocate for clearer articulation of trust boundaries.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+<p id="appendix-A-2"><span class="contact-name">Jari Arkko</span>, <span class="contact-name">Eric Rescorla</span>, and <span class="contact-name">David Schinazi</span> are acknowledged
+for their contributions of thought, review, and text.<a href="#appendix-A-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="authors-addresses">
+<section id="appendix-B">
+      <h2 id="name-authors-address">
+<a href="#name-authors-address" class="section-name selfRef">Author's Address</a>
+      </h2>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Martin Thomson</span></div>
+<div dir="auto" class="left"><span class="org">Mozilla</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:mt@lowentropy.net" class="email">mt@lowentropy.net</a>
+</div>
+</address>
+</section>
+</div>
+<script>const toc = document.getElementById("toc");
+toc.querySelector("h2").addEventListener("click", e => {
+  toc.classList.toggle("active");
+});
+toc.querySelector("nav").addEventListener("click", e => {
+  toc.classList.remove("active");
+});
+</script>
+</body>
+</html>

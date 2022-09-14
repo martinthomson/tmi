@@ -1,0 +1,293 @@
+{
+  "magic": "E!vIA5L86J2I",
+  "timestamp": "2022-09-14T17:15:41.149512+00:00",
+  "repo": "martinthomson/tmi",
+  "labels": [
+    {
+      "name": "bug",
+      "description": "Something isn't working",
+      "color": "d73a4a"
+    },
+    {
+      "name": "documentation",
+      "description": "Improvements or additions to documentation",
+      "color": "0075ca"
+    },
+    {
+      "name": "duplicate",
+      "description": "This issue or pull request already exists",
+      "color": "cfd3d7"
+    },
+    {
+      "name": "enhancement",
+      "description": "New feature or request",
+      "color": "a2eeef"
+    },
+    {
+      "name": "good first issue",
+      "description": "Good for newcomers",
+      "color": "7057ff"
+    },
+    {
+      "name": "help wanted",
+      "description": "Extra attention is needed",
+      "color": "008672"
+    },
+    {
+      "name": "invalid",
+      "description": "This doesn't seem right",
+      "color": "e4e669"
+    },
+    {
+      "name": "question",
+      "description": "Further information is requested",
+      "color": "d876e3"
+    },
+    {
+      "name": "wontfix",
+      "description": "This will not be worked on",
+      "color": "ffffff"
+    }
+  ],
+  "issues": [
+    {
+      "number": 4,
+      "id": "I_kwDOEHzwNM5AFhyQ",
+      "title": "Jari's review",
+      "url": "https://github.com/martinthomson/tmi/issues/4",
+      "state": "OPEN",
+      "author": "martinthomson",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Paste-dump because I've a few too many things active and I don't want to lose this:\r\n\r\n## Summary\r\n\r\nThis document (https://datatracker.ietf.org/doc/html/draft-thomson-tmi-02) discusses the roles of endpoints vs. intermediaries, using a pretty broad definition of intermediaries, which could be anything from a cache to a DNS service to even just a router. The document argues that the intermediaries are a necessary and useful part of the Internet. Indeed, if there were no functions whatsoever in the network, there\u2019d be no network at all. But there are tensions when the interests of the endpoints are not aligned with the interests of the intermediaries, and when for instance an intermediary does more than the endpoints wish it to do. The document proposes three principles around ensuring proper use of intermediaries, on avoiding intermediation, limiting who can be an intermediary, and limiting what the intermediaries are allowed to do.\r\n\r\n## Relevance\r\n\r\nThe document addresses a topic where there is often some tension between different interests and systems, as evidenced by various discussions on network functions interacting with end-to-end encryption, the role of various helper functions and how much information one wants to give them (DNS, various relays), or the discussions on application - network path signalling and information exchanges.\r\n\r\nIt is perhaps not the only* topic of interest to model-t type discussions, but it is interesting and relevant. \r\n\r\n*) Specifically, I think model-t should also think about the you-may-not-entirely-trust-your-endpoint issue, because that is a new and increasingly pressing issue. Of course that is not the only thing to focus on either.\r\n\r\n## Contribution\r\n\r\nThe overall question of tensions between endpoints and other parts of the system has of course been a long-standing topic. This document does not go beyond that particular topic, but focuses on a particular class endpoint vs. others, namely on how to interact with services that are not part of the endpoints but which are still beneficial for some purpose (forwarding, name resolution, etc.) It proposes a useful framework of three principles to guide future designs.\r\n\r\n## Detailed comments\r\n\r\nPrinciples \u2014 in general, these seem spot on, and adequately described.\r\n\r\nDefinition of an intermediary (Section 2) \u2014 I think this is a simple definition, but I found the DNS example confusing. The draft talks about how DNS in general is not an intermediary, because it doesn\u2019t actually intermediate communication. But yet the definition actually said \u201cfacilitate communications\u201d which could include things like name resolution? Yet the draft says that recursive resolvers are intermediaries. Maybe I\u2019m missing something, or perhaps some sharpening of the definitions is needed. Intuitively, my ISP\u2019s or Google recursive resolver sits process-wise between me and my communications to a destination; and I\u2019d like to limit what info I give them. So it feels like an intermediary, as the draft does say as well. But what\u2019s the distinction then to, say, a root server, or the authoritative DNS server for the domain?\r\n\r\nIntermediation is essential (Section 3) \u2014 good! Good examples.\r\n\r\nIntermediation is useful (Section 4) \u2014 also good. Perhaps this section could also talk about the different ends of the scale. As the section says, individuals do not have scaling benefits than e.g. an ISP or CDN operator has, which has benefits for attack defence. But on the other end of the scale, resilience suffers if we attempt to aggregate everything to a single intermediary service. Aggreagion is useful to a point.\r\n\r\nIntermediary enables scaling of control (Section 5) \u2014 agreed. Of course there\u2019s similar arguments about endpoints, such as your favourite service or software. But that is perhaps a topic for some other work in the model-t space.\r\n\r\nIncentive misalignment (Section 6) \u2014 yes.\r\n\r\nForced and unwanted (Section 7) \u2014 Agreed. But here it might be useful to discuss also a bit more about the types of forcing that are possible. There seems to be two eras, one where due to lack of encryption various kinds of \u201cI\u2019m on the path\u201d devices were able to become intermediaries. What\u2019s left when we move to the all-encrypted world? Would you consider intermediary services chosen by an app as forced? What about software limitations on your device that force you to the kind of intermediation that you\u2019d rather not have (e.g., sending cleartext email through a server) but have no choice to avoid? Also, perhaps as a general point it might be useful to discuss more examples from the application level intermediaries in the document. I think you\u2019d have plenty of messaging and email examples to use, Martin.\r\n\r\nContention (Section 8) \u2014 I wonder if there was a more clear conclusion from the SRv6 example \u2014 I do agree that some network tricks really are about tunnelling, in some cases using a particular way to encode the tunnel bits. But is tunnelling in general intermediation? Or harmful? Or only if it modifies (even temporarily) the packet? \r\n\r\nServices over intermediation (Section 9.1) \u2014 this leads me to back to the definition. Is an intermediary only an intermediary if the all communications flow through it? What if some information flows to it, but not all? Is it an intermediary if it can make a decision about something, like whether I can connect to example.com? Perhaps a different way to phrase the Section 9.1 principle is to focus on the information and modularity, not whether we call a thing service or intermediary. If I have a need for a function, I\u2019d like that function to learn the minimal amount of information from what else I\u2019m doing. I ask someone to perform that function, I get an answer, and then I go on my business to continue whatever else I may need to do. Not that I handle everything via that something which both sees my traffic while performing whatever small function I needed.\r\n\r\nYour discussion of avoiding the intermediaries to become participants is spot on. This is also a benefit of the service model (or the limited-data-limited-function model): when I contact a service to perform a simple task, the rest of my communication partners don\u2019t have to know about that and don\u2019t have to prepare for N-way negotiation or error cases.\r\n\r\nDeliberate selection (Section 9.2) \u2014 nice extension of the 8558 principle!\r\n\r\nLimit capabilities (Section 9.3) \u2014 Good. There seems to be also some relationship to the Section 9.1 principle in terms of limiting the function/service to the minimal, modular function.\r\n\r\n## Conclusion\r\n\r\nThanks for interesting and useful work! I think this should somehow proceed towards an IAB RFC, although perhaps some further discussions/changes might be useful.",
+      "createdAt": "2021-12-09T06:13:18Z",
+      "updatedAt": "2021-12-09T06:13:18Z",
+      "closedAt": null,
+      "comments": []
+    }
+  ],
+  "pulls": [
+    {
+      "number": 1,
+      "id": "MDExOlB1bGxSZXF1ZXN0NDQ0MTU5NzMy",
+      "title": "Ekr edits",
+      "url": "https://github.com/martinthomson/tmi/pull/1",
+      "state": "MERGED",
+      "author": "ekr",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2020-07-03T18:27:15Z",
+      "updatedAt": "2020-07-06T05:52:23Z",
+      "baseRepository": "martinthomson/tmi",
+      "baseRefName": "main",
+      "baseRefOid": "357c87c7fb6c10fb442351440c0fecbc97b4a910",
+      "headRepository": "ekr/tmi",
+      "headRefName": "ekr_edits",
+      "headRefOid": "b06d5f63665c6858c3f72aec24c07a8e47cb5d6f",
+      "closedAt": "2020-07-06T05:52:23Z",
+      "mergedAt": "2020-07-06T05:52:23Z",
+      "mergedBy": "martinthomson",
+      "mergeCommit": {
+        "oid": "3bb7b7094635179833dd96353caa60cb93f6e0e2"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 2,
+      "id": "MDExOlB1bGxSZXF1ZXN0NDQ0NTg1ODA1",
+      "title": "The title is wrong",
+      "url": "https://github.com/martinthomson/tmi/pull/2",
+      "state": "CLOSED",
+      "author": "martinthomson",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2020-07-06T07:13:42Z",
+      "updatedAt": "2020-07-10T03:46:57Z",
+      "baseRepository": "martinthomson/tmi",
+      "baseRefName": "main",
+      "baseRefOid": "3bb7b7094635179833dd96353caa60cb93f6e0e2",
+      "headRepository": "unicorn-wg/tmi",
+      "headRefName": "unicorn",
+      "headRefOid": "b2b6674186b70f1c7fdf8e247f062bfacdbbdbef",
+      "closedAt": "2020-07-10T03:46:57Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 3,
+      "id": "MDExOlB1bGxSZXF1ZXN0NDQ2NTYxNDcw",
+      "title": "Proposal to add a paragraph about assumptions",
+      "url": "https://github.com/martinthomson/tmi/pull/3",
+      "state": "MERGED",
+      "author": "DavidSchinazi",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "I figured it would be easier to phrase this as a PR than an issue, but I'm happy to file an issue if you prefer. I think it would be nice for this document to mention that any intermediation based on assumptions runs the risk of breaking when the endpoints don't follow said assumptions.",
+      "createdAt": "2020-07-09T01:16:02Z",
+      "updatedAt": "2022-09-07T02:51:28Z",
+      "baseRepository": "martinthomson/tmi",
+      "baseRefName": "main",
+      "baseRefOid": "669512b613e0c37bdc8f49c6bad233773f0be2e5",
+      "headRepository": "DavidSchinazi/tmi",
+      "headRefName": "incorrect_intermediation",
+      "headRefOid": "551b9d8f6316cf1db45b9fcfc89e8f952e536597",
+      "closedAt": "2022-09-07T02:51:28Z",
+      "mergedAt": "2022-09-07T02:51:28Z",
+      "mergedBy": "martinthomson",
+      "mergeCommit": {
+        "oid": "c02226324166b06411520d7f8987bedb88abeb87"
+      },
+      "comments": [
+        {
+          "author": "DavidSchinazi",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "That makes sense. Feel free to change this as you see fit!",
+          "createdAt": "2020-07-09T19:38:50Z",
+          "updatedAt": "2020-07-09T19:38:50Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NDQ1MjMzODM3",
+          "commit": {
+            "abbreviatedOid": "6137b76"
+          },
+          "author": "martinthomson",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "I need to think about how to integrate this (the TLS example is topical, but it might not be the best one to illustrate the case - because ECH is going to retain that property, it might be good to find an example where a bad assumption was demonstrably false).  The example of \"QUIC starts with a 0x07 octet\" one is a possible example.",
+          "createdAt": "2020-07-09T01:38:20Z",
+          "updatedAt": "2020-07-09T01:40:23Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "```suggestion\r\n```\r\n\r\nThis is a natural follow-on to the text that precedes it.",
+              "createdAt": "2020-07-09T01:38:20Z",
+              "updatedAt": "2020-07-09T19:38:25Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "id": "PR_kwDOEHzwNM4wNv8C",
+      "title": "Work on intermediary definition",
+      "url": "https://github.com/martinthomson/tmi/pull/5",
+      "state": "MERGED",
+      "author": "martinthomson",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "This is difficult, as this is a thicket of traps for the unwary.  The\r\nnotion of \"beneficiary\" that I'm using here is weak in the sense that\r\nintermediaries often benefit from harvesting information about\r\nexchanges.\r\n\r\nI'm happy with that in the sense that the benefit that they derive is\r\nindirect.  That search engines (which unfortunately are very much\r\nintermediaries, despite their function appearing to be a service), use\r\nthe click stream as a primary source of income doesn't make the value\r\nthey derive any more direct under this definition.\r\n\r\nThe other key aspect is that this allows for modification of protocol\r\nunits by the intermediary.  This is, again, a thicket of nuance that\r\nprobably could be the subject of a longer dissertation.  For me, the key\r\ndistinction is that the intermediary would not be in a position to\r\ngenerate the protocol unit it sends without first having received a\r\nsimilar unit from another entity.\r\n\r\nIt's possible that this opens a bigger discussion into messages that the\r\nintermediary receives and does not forward when that was not intended by\r\nthe original sender.  Similarly, messages that the intermediary\r\ngenerates unilaterally.  I've added a little bit about that to the\r\nSecurity Considerations.\r\n\r\nI've also expanded this to talk about the status of an entity as\r\nintermediary is contextual.  Taking the example of the search engine\r\nagain, that is an HTTP, TLS, TCP, and IP endpoint, but at the layer that\r\nmatters to a human, it's an intermediary.  It's not OSI layers, as there\r\nare many protocols that are partially terminated and partially\r\nforwarded.  For instance, many protocols deliberately generate messages\r\nthat are similar to end-to-end messages, but are constructed to be\r\nconsumed or produced by intermediaries.  Still, that's the concept we\r\nbest understand here, so I'm sticking with it.",
+      "createdAt": "2021-12-23T06:36:27Z",
+      "updatedAt": "2022-03-07T23:49:34Z",
+      "baseRepository": "martinthomson/tmi",
+      "baseRefName": "main",
+      "baseRefOid": "d404c18b8d1a8d951e0b886c4c8cf80a59807f00",
+      "headRepository": "martinthomson/tmi",
+      "headRefName": "define-intermediary",
+      "headRefOid": "280a3831176996c438df6007033be0f855adb20f",
+      "closedAt": "2022-03-07T23:49:34Z",
+      "mergedAt": "2022-03-07T23:49:34Z",
+      "mergedBy": "martinthomson",
+      "mergeCommit": {
+        "oid": "280a3831176996c438df6007033be0f855adb20f"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 6,
+      "id": "PR_kwDOEHzwNM46rsbF",
+      "title": "Update metadata",
+      "url": "https://github.com/martinthomson/tmi/pull/6",
+      "state": "MERGED",
+      "author": "martinthomson",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2022-07-01T05:09:30Z",
+      "updatedAt": "2022-07-01T05:35:44Z",
+      "baseRepository": "martinthomson/tmi",
+      "baseRefName": "main",
+      "baseRefOid": "e3179d2673581eaf8f9282d907fdf30daf7dc701",
+      "headRepository": "martinthomson/tmi",
+      "headRefName": "update-metadata",
+      "headRefOid": "ce8411849b4d3c15ce028f28706f316c7744e1f9",
+      "closedAt": "2022-07-01T05:35:44Z",
+      "mergedAt": "2022-07-01T05:35:44Z",
+      "mergedBy": "martinthomson",
+      "mergeCommit": {
+        "oid": "6e2816873860e14584bff82cb80e1beccbcbadf2"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 7,
+      "id": "PR_kwDOEHzwNM46rwAJ",
+      "title": "Revert \"Update metadata\"",
+      "url": "https://github.com/martinthomson/tmi/pull/7",
+      "state": "CLOSED",
+      "author": "martinthomson",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Reverts martinthomson/tmi#6",
+      "createdAt": "2022-07-01T05:38:42Z",
+      "updatedAt": "2022-07-01T05:58:10Z",
+      "baseRepository": "martinthomson/tmi",
+      "baseRefName": "main",
+      "baseRefOid": "6e2816873860e14584bff82cb80e1beccbcbadf2",
+      "headRepository": "martinthomson/tmi",
+      "headRefName": "revert-6-update-metadata",
+      "headRefOid": "95b810e86c02d30180ea2e91897d766069c86964",
+      "closedAt": "2022-07-01T05:58:04Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 8,
+      "id": "PR_kwDOEHzwNM46rwSi",
+      "title": "Meta",
+      "url": "https://github.com/martinthomson/tmi/pull/8",
+      "state": "MERGED",
+      "author": "martinthomson",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2022-07-01T05:41:08Z",
+      "updatedAt": "2022-07-01T06:26:31Z",
+      "baseRepository": "martinthomson/tmi",
+      "baseRefName": "main",
+      "baseRefOid": "6e2816873860e14584bff82cb80e1beccbcbadf2",
+      "headRepository": "martinthomson/tmi",
+      "headRefName": "meta2",
+      "headRefOid": "ebfc9c9cdaac60825e72a4434d2f5303ffe31da6",
+      "closedAt": "2022-07-01T05:57:57Z",
+      "mergedAt": "2022-07-01T05:57:57Z",
+      "mergedBy": "martinthomson",
+      "mergeCommit": {
+        "oid": "7021449d069f5335a1167fa90fa6ab9b569fdd2f"
+      },
+      "comments": [],
+      "reviews": []
+    }
+  ]
+}
