@@ -4,8 +4,8 @@
 
 Network Working Group                                         M. Thomson
 Internet-Draft                                                   Mozilla
-Intended status: Informational                         14 September 2022
-Expires: 18 March 2023
+Intended status: Informational                           5 December 2022
+Expires: 8 June 2023
 
 
  Principles for the Involvement of Intermediaries in Internet Protocols
@@ -45,7 +45,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 18 March 2023.
+   This Internet-Draft will expire on 8 June 2023.
 
 Copyright Notice
 
@@ -162,8 +162,8 @@ Table of Contents
    locating and communicating with other Internet hosts, but it does so
    without intermediating those communications.  Thus, this definition
    of intermediary does not necessarily include a service like the DNS.
-   Of course, the use of the DNS could involve engaging with
-   intermediaries such as recursive resolvers.
+   Of course, use of the DNS often involves engaging with intermediaries
+   such as recursive resolvers.
 
 3.  Intermediation Is Essential
 
