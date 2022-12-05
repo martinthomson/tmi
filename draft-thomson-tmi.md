@@ -110,7 +110,7 @@ It is possible to facilitate communication without being an intermediary.  The
 DNS provides information that is critical to locating and communicating with
 other Internet hosts, but it does so without intermediating those
 communications.  Thus, this definition of intermediary does not necessarily
-include a service like the DNS.  Of course, the use of the DNS could involve
+include a service like the DNS.  Of course, use of the DNS often involves
 engaging with intermediaries such as recursive resolvers.
 
 
