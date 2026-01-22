@@ -4,8 +4,8 @@
 
 Network Working Group                                         M. Thomson
 Internet-Draft                                                   Mozilla
-Intended status: Informational                           7 December 2022
-Expires: 10 June 2023
+Intended status: Informational                           22 January 2026
+Expires: 26 July 2026
 
 
  Principles for the Involvement of Intermediaries in Internet Protocols
@@ -45,11 +45,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 10 June 2023.
+   This Internet-Draft will expire on 26 July 2026.
 
 Copyright Notice
 
-   Copyright (c) 2022 IETF Trust and the persons identified as the
+   Copyright (c) 2026 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -608,8 +608,10 @@ Table of Contents
 
    [CLINIC]   Miller, B., Huang, L., Joseph, A., and J. Tygar, "I Know
               Why You Went to the Clinic: Risks and Realization of HTTPS
-              Traffic Analysis", Privacy Enhancing Technologies pp.
-              143-163, DOI 10.1007/978-3-319-08506-7_8, 2014,
+              Traffic Analysis", Springer International Publishing,
+              Lecture Notes in Computer Science pp. 143-163,
+              DOI 10.1007/978-3-319-08506-7_8, ISBN ["9783319085050",
+              "9783319085067"], 2014,
               <https://doi.org/10.1007/978-3-319-08506-7_8>.
 
    [DIAMETER] Fajardo, V., Ed., Arkko, J., Loughney, J., and G. Zorn,
@@ -618,9 +620,9 @@ Table of Contents
               <https://www.rfc-editor.org/rfc/rfc6733>.
 
    [E2E]      Saltzer, J., Reed, D., and D. Clark, "End-to-end arguments
-              in system design", ACM Transactions on Computer
-              Systems vol. 2, no. 4, pp. 277-288,
-              DOI 10.1145/357401.357402, November 1984,
+              in system design", Association for Computing Machinery
+              (ACM), ACM Transactions on Computer Systems vol. 2, no. 4,
+              pp. 277-288, DOI 10.1145/357401.357402, November 1984,
               <https://doi.org/10.1145/357401.357402>.
 
    [ECN]      Ramakrishnan, K., Floyd, S., and D. Black, "The Addition
@@ -650,8 +652,9 @@ Table of Contents
 
    [LEAST-PRIVILEGE]
               Saltzer, J., "Protection and the control of information
-              sharing in multics", Communications of the ACM vol. 17,
-              no. 7, pp. 388-402, DOI 10.1145/361011.361067, July 1974,
+              sharing in multics", Association for Computing Machinery
+              (ACM), Communications of the ACM vol. 17, no. 7, pp.
+              388-402, DOI 10.1145/361011.361067, July 1974,
               <https://doi.org/10.1145/361011.361067>.
 
    [MIDDLEBOX]
@@ -670,8 +673,9 @@ Table of Contents
    [PARADOX]  Valenzuela, S., Halpern, D., Katz, J., and J. Miranda,
               "The Paradox of Participation Versus Misinformation:
               Social Media, Political Engagement, and the Spread of
-              Misinformation", Digital Journalism vol. 7, no. 6, pp.
-              802-823, DOI 10.1080/21670811.2019.1623701, June 2019,
+              Misinformation", Informa UK Limited, Digital
+              Journalism vol. 7, no. 6, pp. 802-823,
+              DOI 10.1080/21670811.2019.1623701, June 2019,
               <https://doi.org/10.1080/21670811.2019.1623701>.
 
    [PATH-SIGNALS]
@@ -754,9 +758,9 @@ Table of Contents
    [TCP-EXTEND]
               Honda, M., Nishida, Y., Raiciu, C., Greenhalgh, A.,
               Handley, M., and H. Tokuda, "Is it still possible to
-              extend TCP?", Proceedings of the 2011 ACM SIGCOMM
-              conference on Internet measurement conference - IMC '11,
-              DOI 10.1145/2068816.2068834, 2011,
+              extend TCP?", ACM, Proceedings of the 2011 ACM SIGCOMM
+              conference on Internet measurement conference pp. 181-194,
+              DOI 10.1145/2068816.2068834, November 2011,
               <https://doi.org/10.1145/2068816.2068834>.
 
    [TLS]      Rescorla, E., "The Transport Layer Security (TLS) Protocol
