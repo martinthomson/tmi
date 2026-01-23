@@ -57,8 +57,8 @@ jobs:
     - name: "Propose Changes"
       if: >
         steps.fix-lint.outcome != 'skipped' &&
-        (!github.event.pull_request
-         || github.event.pull_request.head.repo.full_name == github.repository)
+        github.event.pull_request &&
+        github.event.pull_request.head.repo.full_name == github.repository
       uses: parkerbxyz/suggest-changes@v3
       with:
         token: ${{ github.token }}
