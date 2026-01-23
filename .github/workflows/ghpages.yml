@@ -49,7 +49,7 @@ jobs:
 
     - name: "Fix Lints"
       id: fix-lint
-      if: always() && steps.build.outcome == 'failed'
+      if: always() && steps.build.outcome == 'failure'
       uses: martinthomson/i-d-template@v1
       with:
         make: fix-lint
