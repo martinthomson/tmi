@@ -49,13 +49,14 @@ jobs:
 
     - name: "Fix Lints"
       id: fix-lint
-      if: steps.build.outcome == 'failed'
+      if: always() && steps.build.outcome == 'failed'
       uses: martinthomson/i-d-template@v1
       with:
         make: fix-lint
 
     - name: "Propose Changes"
       if: >
+        always() &&
         steps.fix-lint.outcome != 'skipped' &&
         github.event.pull_request &&
         github.event.pull_request.head.repo.full_name == github.repository
